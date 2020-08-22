@@ -1,77 +1,91 @@
-NAME = libftprintf.a
-NAME_E = printf
-FLAGS = -Wall -Werror -Wextra
-INCLUDES = ./includes/
-SRC_DIR = ./srcs/
-L_ROOT = ../libft/
-LIBFT = libft.a
+# ft_checker variables----------------------------------------------------------
+CHECKER = checker
+C_ROOT = ./ft_checker/
+C_SRCS = $(C_ROOT)srcs/
+# libft  variables--------------------------------------------------------------
+LIBFT = ./libft/libft.a
+L_ROOT = ./libft/
 L_FLAGS = -L $(L_ROOT) -lft
-FLOAT_DIR = ./floats/
+# printf variables--------------------------------------------------------------
+PRINTF = ./printf/libftprintf.a
+P_ROOT = ./printf/
+P_INC = $(P_ROOT)includes/
+P_FLAGS = -L $(P_ROOT) -lftprintf
+# push_swap variables-----------------------------------------------------------
+PUSH_SWAP = push_swap
+PS_ROOT = ./ft_push_swap/
+PS_SRCS = $(PS_ROOT)srcs/
+PS_INC = ./includes/
 
-SRC =	$(FLOAT_DIR)big_math_b2b.c\
-		$(FLOAT_DIR)big_math_b2n.c\
-		$(FLOAT_DIR)frac_math.c\
-		$(FLOAT_DIR)fractional_base.c\
-		$(FLOAT_DIR)fractional_to_str.c\
-		$(FLOAT_DIR)get_mant_len.c\
-		$(FLOAT_DIR)initialize_float.c\
-		$(FLOAT_DIR)integral_base.c\
-		$(FLOAT_DIR)integral_creation.c\
-		$(FLOAT_DIR)integral_to_str.c\
-		$(SRC_DIR)chars_conversion.c\
-		$(SRC_DIR)chars_printing.c\
-		$(SRC_DIR)check_info.c\
-		$(SRC_DIR)float_conversion.c\
-		$(SRC_DIR)float_flags_cases.c\
-		$(SRC_DIR)float_get_arg.c\
-		$(SRC_DIR)integer_flags_cases.c\
-		$(SRC_DIR)integer_conversion.c\
-		$(SRC_DIR)integer_printing.c\
-		$(SRC_DIR)integer_sign_prefix.c\
-		$(SRC_DIR)nbr_len.c\
-		$(SRC_DIR)nbr_len_iu.c\
-		$(SRC_DIR)nbr_len_lu.c\
-		$(SRC_DIR)nbr_len_llu.c\
-		$(SRC_DIR)parser.c\
-		$(SRC_DIR)parser_flags.c\
-		$(SRC_DIR)percent_case.c\
-		$(SRC_DIR)pointer_conversion.c\
-		$(SRC_DIR)printf.c\
-		$(SRC_DIR)processor.c\
+C_SRC = $(C_SRCS)bigint_base.c\
+	$(C_SRCS)commander.c\
+	$(C_SRCS)reader.c\
+	$(C_SRCS)stack_handler.c\
+	$(C_SRCS)checker.c\
+	$(PS_SRCS)cleaner.c\
+	$(PS_SRCS)check_order.c\
+	$(C_SRCS)spliter.c\
+	$(C_ROOT)main.c\
 
-OS = $(SRC:%.c=%.o)
+PS_SRC = $(PS_SRCS)all_to_a.c\
+	$(PS_SRCS)all_to_b.c\
+	$(PS_SRCS)check_order.c\
+	$(PS_SRCS)cleaner.c\
+	$(PS_SRCS)sort_map.c\
+	$(PS_SRCS)ft_is_slice.c\
+	$(PS_SRCS)get_commands.c\
+	$(PS_SRCS)insertion_sort.c\
+	$(PS_SRCS)main_struct.c\
+	$(PS_SRCS)middle_handler.c\
+	$(PS_SRCS)optimize_way.c\
+	$(PS_SRCS)ptr_to_a.c\
+	$(PS_SRCS)ptr_to_top_b.c\
+	$(PS_SRCS)set_steps.c\
+	$(PS_SRCS)timsort.c\
+	$(PS_SRCS)timsort_merge.c\
+	$(PS_SRCS)vector.c\
+	$(PS_SRCS)vector_arr.c\
+	$(C_SRCS)stack_handler.c\
+	$(C_SRCS)reader.c\
+	$(C_SRCS)commander.c\
+	$(C_SRCS)bigint_base.c\
+	$(C_SRCS)spliter.c\
+	$(C_SRCS)checker.c\
+	$(PS_ROOT)main.c\
 
-all: $(LIBFT) $(NAME)
+C_OBJ = $(C_SRC:%.c=%.o)
+PS_OBJ = $(PS_SRC:%.c=%.o)
 
+# flags-------------------------------------------------------------------------
+FLAGS = -Wall -Werror -Wextra
+I_FLAGS = -I $(PS_INC) -I $(P_INC) -I $(L_ROOT)
+
+all: $(LIBFT) $(PRINTF) $(CHECKER) $(PUSH_SWAP)
+# build external libraries------------------------------------------------------
 $(LIBFT):
 	$(MAKE) -C $(L_ROOT)
+$(PRINTF):
+	$(MAKE) -C $(P_ROOT)
 
-$(NAME): $(OS)
-	cp $(L_ROOT)$(LIBFT) .
-	mv $(LIBFT) $(NAME)
-	ar rcs $(NAME) $(OS)
+# build checker-----------------------------------------------------------------
+$(CHECKER): $(LIBFT) $(PRINTF) $(C_OBJ)
+	gcc $(C_OBJ) -o $(CHECKER) $(I_FLAGS) $(FLAGS) $(L_FLAGS) $(P_FLAGS)
+%.o: %.c $(PS_INC)push_swap.h
+	gcc -c $< -o $@ $(I_FLAGS) $(FLAGS)
 
-%.o: %.c $(INCLUDES)printf.h $(INCLUDES)fractional.h $(INCLUDES)xray.h\
-$(INCLUDES)integral.h
-	gcc -c $< -o $@ -I $(INCLUDES) -I $(L_ROOT) $(FLAGS)
+# build push swap---------------------------------------------------------------
+$(PUSH_SWAP): $(LIBFT) $(PRINTF) $(PS_OBJ)
+	gcc $(PS_OBJ) -o $(PUSH_SWAP) $(I_FLAGS) $(FLAGS) $(L_FLAGS) $(P_FLAGS)
 
+# clean section-----------------------------------------------------------------
 clean:
-	rm -rf $(OS)
-	make -C $(L_ROOT) clean
-
+	$(MAKE) -C $(L_ROOT) clean
+	$(MAKE) -C $(P_ROOT) clean
+	rm -rf $(C_OBJ)
+	rm -rf $(PS_OBJ)
 fclean: clean
-	rm -rf $(NAME)
-	rm -rf $(LIBFT)
-	make -C $(L_ROOT) fclean
+	$(MAKE) -C $(L_ROOT) fclean
+	$(MAKE) -C $(P_ROOT) fclean
+	rm -rf $(CHECKER)
+	rm -rf $(PUSH_SWAP)
 re: fclean all
-
-exe: $(NAME)
-	gcc -c main.c
-	gcc $(OS) main.o -o $(NAME_E) -L -lfrprintf
-eclean: clean
-	rm -rf main.o
-efclean: eclean
-	rm -rf $(NAME_E)
-ere: efclean exe
-
-.PHONY: all clean fclean re exe eclean efclean

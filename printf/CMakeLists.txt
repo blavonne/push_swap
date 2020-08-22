@@ -1,62 +1,30 @@
 cmake_minimum_required(VERSION 3.16)
-project(ftprintf C)
+project(checker C)
 
 set(CMAKE_C_STANDARD 11)
-include_directories(includes)
-add_library(ftprintf STATIC
-        floats/big_math_b2b.c
-        floats/big_math_b2n.c
-        floats/frac_math.c
-        floats/fractional_base.c
-        floats/fractional_to_str.c
-        floats/get_mant_len.c
-        floats/initialize_float.c
-        floats/integral_base.c
-        floats/integral_creation.c
-        floats/integral_to_str.c
-        srcs/errors.c
-        srcs/ft_strcpy.c
-        srcs/ft_putstr_fd.c
-        srcs/ft_abs.c
-        srcs/ft_bzero.c
-        srcs/ft_isdigit.c
-        srcs/ft_itoa.c
-        srcs/ft_itoa_llu.c
-        srcs/ft_itoa_lu.c
-        srcs/ft_memset.c
-        srcs/ft_pow.c
-        srcs/ft_putchar.c
-        srcs/ft_putstr.c
-        srcs/ft_str_tolower.c
-        srcs/ft_str_toupper.c
-        srcs/ft_strcat.c
-        srcs/ft_strchr.c
-        srcs/ft_strjoin.c
-        srcs/ft_strlen.c
-        srcs/ft_strnew.c
-        srcs/ft_tolower.c
-        srcs/ft_toupper.c
-        srcs/chars_conversion.c
-        srcs/chars_printing.c
-        srcs/check_info.c
-        srcs/float_conversion.c
-        srcs/float_flags_cases.c
-        srcs/float_get_arg.c
-        srcs/integer_flags_cases.c
-        srcs/integer_conversion.c
-        srcs/integer_printing.c
-        srcs/integer_sign_prefix.c
-        srcs/nbr_len.c
-        srcs/nbr_len_iu.c
-        srcs/nbr_len_lu.c
-        srcs/nbr_len_llu.c
-        srcs/parser.c
-        srcs/parser_flags.c
-        srcs/percent_case.c
-        srcs/pointer_conversion.c
-        srcs/printf.c
-        srcs/processor.c
-        includes/fractional.h
-        includes/integral.h
-        includes/printf.h
-        includes/xray.h)
+
+include_directories(./includes)
+include_directories(./libft)
+include_directories(./printf/includes)
+add_subdirectory(./libft)
+add_subdirectory(./printf)
+add_executable(checker
+        includes/push_swap.h
+        ft_checker/srcs/reader.c
+        ft_checker/srcs/bigint_base.c
+        ft_checker/srcs/commander.c
+        ft_checker/srcs/stack_handler.c
+        ft_push_swap/srcs/timsort.c
+        ft_push_swap/srcs/get_commands.c
+        ft_push_swap/srcs/vector.c
+        ft_push_swap/srcs/cleaner.c
+        ft_push_swap/main.c
+        ft_push_swap/srcs/all_to_b.c
+        ft_push_swap/srcs/middle_handler.c
+        ft_push_swap/srcs/timsort_merge.c
+        ft_push_swap/srcs/insertion_sort.c
+        ft_push_swap/srcs/ft_is_slice.c
+        ft_push_swap/srcs/check_order.c
+        ft_push_swap/srcs/all_to_a.c
+        ft_push_swap/srcs/vector_arr.c ft_push_swap/srcs/main_struct.c ft_push_swap/srcs/ptr_to_top_b.c ft_push_swap/srcs/ptr_to_a.c ft_push_swap/srcs/optimize_way.c ft_push_swap/srcs/set_steps.c ft_checker/srcs/spliter.c ft_push_swap/srcs/sort_map.c)
+target_link_libraries(checker libft ftprintf)
