@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_slice.c                                      :+:      :+:    :+:   */
+/*   is_slice.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blavonne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -28,7 +28,7 @@ int		check_point(t_stack *a, t_stack *point, char order)
 	return (0);
 }
 
-int		ft_isslice(t_stack *a)
+int		is_slice(t_stack *a)
 {
 	t_stack	*ptr;
 

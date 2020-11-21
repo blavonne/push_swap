@@ -41,7 +41,7 @@ typedef struct		s_vector
 	size_t			next;
 }					t_vector;
 
-typedef struct		s_main
+typedef struct		s_info
 {
 	t_vector		*cmd_c;
 	t_vector		*count_steps_i;
@@ -84,7 +84,7 @@ void				run_command(char *command, t_stack **a, t_stack **b);
 int					check_command(char *cmd);
 
 int					check_asc_order(t_stack *a, t_stack *b);
-int					ft_isslice(t_stack *a);
+int					is_slice(t_stack *a);
 
 t_info				*create_main_struct(void);
 t_vector			*create_vector(void);
@@ -112,7 +112,7 @@ int					*insertion_sort(int *arr, t_map *map);
 void				all_to_a(t_stack **a, t_stack **b, t_info **m);
 t_vector			*ptr_to_top_b(t_stack *b, t_stack *ptr);
 int					ptr_to_a(t_stack *a, t_stack *ptr, t_vector **way);
-int					set_steps(t_stack *a, t_stack *b, t_stack *ptr, t_info **m);
+int					set_steps(t_stack *a, t_stack *b, t_stack *ptr, t_info **info);
 int					cat_vectors(t_vector **dest, t_vector *src);
 void				optimize_way(t_vector *way);
 

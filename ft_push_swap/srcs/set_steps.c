@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int				set_steps(t_stack *a, t_stack *b, t_stack *ptr, t_info **m)
+int				set_steps(t_stack *a, t_stack *b, t_stack *ptr, t_info **info)
 {
 	t_vector	*way;
 
@@ -23,12 +23,12 @@ int				set_steps(t_stack *a, t_stack *b, t_stack *ptr, t_info **m)
 	if (!push_in_vector(&way, PA, sizeof(char)))
 		return (0);
 	optimize_way(way);
-	if (!push_in_varr(m, way))
+	if (!push_in_varr(info, way))
 	{
 		destroy_vector(&way);
 		return (0);
 	}
-	if (!(push_in_vector(&(*m)->count_steps_i, way->next, sizeof(int))))
+	if (!(push_in_vector(&(*info)->count_steps_i, way->next, sizeof(int))))
 	{
 		destroy_vector(&way);
 		return (0);

@@ -13,6 +13,26 @@
 #include "push_swap.h"
 
 /*
+** ==========TRY_SA==========
+** This func tries to do sa and if stack a is slice after that
+** then it returns 1 otherwise it rolls back sa and returns 0
+*/
+
+int			try_sa(t_stack **a, t_stack **b, t_info **info)
+{
+	run_command("sa", a, 0);
+	if (is_slice(*a))
+	{
+		if (!push_in_vector(&(*info)->cmd_c, SA, sizeof(char)))
+			clean_and_exit(a, b, info, 'm');
+		return (1);
+	}
+	else
+		run_command("sa", a, 0);
+	return (0);
+}
+
+/*
 ** ==========PB_FORWARD==========
 ** This func pushes numbers less than middle_val from top A to top B
 */
@@ -23,7 +43,8 @@ static void		pb_forward(t_stack **a, t_stack **b, t_info **info,\
 	t_stack		*ptr;
 
 	ptr = (*a);
-	while (ptr && ptr->value < middle_val && !(ft_isslice((*a))))
+	while (ptr && ptr->value < middle_val && !(is_slice((*a))) &&\
+	!try_sa(a, b, info))
 	{
 		run_command("pb", a, b);
 		if (!push_in_vector(&(*info)->cmd_c, PB, sizeof(char)))
@@ -43,7 +64,8 @@ static void		pb_back(t_stack **a, t_stack **b, t_info **info,\
 	t_stack		*ptr;
 
 	ptr = (*a);
-	while (ptr && ptr->value < middle_val && !(ft_isslice((*a))))
+	while (ptr && ptr->value < middle_val && !(is_slice((*a))) &&\
+	!try_sa(a, b, info))
 	{
 		if (!push_in_vector(&(*info)->cmd_c, RRA, sizeof(char)))
 			clean_and_exit(a, b, info, 'm');
@@ -52,22 +74,6 @@ static void		pb_back(t_stack **a, t_stack **b, t_info **info,\
 			clean_and_exit(a, b, info, 'm');
 		run_command("rra", a, b);
 		ptr = (*a);
-	}
-}
-
-/*
-** ==========SA==========
-** This func swaps numbers in A by ascending order if A contains 2 numbers only
-*/
-
-static void		sa(t_stack **a, t_stack **b, t_info **info)
-{
-	if ((*a) && (*a)->next && !(*a)->next->next && (*a)->value >\
-		(*a)->next->value)
-	{
-		run_command("sa", a, b);
-		if (!push_in_vector(&(*info)->cmd_c, SA, sizeof(char)))
-			clean_and_exit(a, b, info, 'm');
 	}
 }
 
@@ -82,7 +88,7 @@ static void		ra(t_stack **a, t_stack **b, t_info **info, int middle_val)
 
 	ptr = (*a);
 	while (ptr && check_mid(*a, middle_val) && ptr->value >= middle_val\
-	&& !(ft_isslice((*a))))
+	&& !(is_slice((*a))) && !try_sa(a, b, info))
 	{
 		run_command("ra", a, b);
 		if (!push_in_vector(&(*info)->cmd_c, RA, sizeof(char)))
@@ -101,17 +107,18 @@ void			all_to_b(t_stack **a, t_stack **b, t_info **info)
 {
 	int				middle_val;
 
-	while ((*a) && (*a)->next && (*a)->next->next && !(ft_isslice((*a))))
+	while ((*a) && (*a)->next && (*a)->next->next && !(is_slice((*a))))
 	{
 		middle_val = get_middle(a, b, info);
-		while (check_mid((*a), middle_val) && !(ft_isslice((*a))))
+		try_sa(a, b, info);
+		while (check_mid((*a), middle_val) && !(is_slice((*a))))
 		{
+			try_sa(a, b, info);
 			pb_forward(a, b, info, middle_val);
 			run_command("rra", a, b);
 			pb_back(a, b, info, middle_val);
 			run_command("ra", a, b);
 			ra(a, b, info, middle_val);
 		}
-		sa(a, b, info);
 	}
 }

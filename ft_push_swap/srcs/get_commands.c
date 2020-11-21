@@ -78,7 +78,7 @@ t_info		*get_commands(t_stack **a, t_stack **b)
 	all_to_a(a, b, &info);
 	if (check_asc_order((*a), 0))
 		return (info);
-	if (!(ft_isslice(*a)))
+	if (!(is_slice(*a)))
 		clean_and_exit(a, b, 0, 'm');
 	if (!sort_slice(a, &info))
 		clean_and_exit(a, b, &info, 'm');
