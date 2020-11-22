@@ -23,6 +23,7 @@ int			try_sa(t_stack **a, t_stack **b, t_info **info)
 	run_command("sa", a, 0);
 	if (is_slice(*a))
 	{
+//		ft_printf("is slice\n");
 		if (!push_in_vector(&(*info)->cmd_c, SA, sizeof(char)))
 			clean_and_exit(a, b, info, 'm');
 		return (1);
@@ -103,7 +104,7 @@ static void		ra(t_stack **a, t_stack **b, t_info **info, int middle_val)
 ** and other numbers puts in B
 */
 
-void			all_to_b(t_stack **a, t_stack **b, t_info **info)
+void			all_to_b_old(t_stack **a, t_stack **b, t_info **info)
 {
 	int				middle_val;
 

@@ -25,22 +25,36 @@ int		check_point(t_stack *a, t_stack *point, char order)
 	if ((i == 1 && ptr && ptr->value < a->value) || (i == 2 && ptr &&
 	ptr->value > a->value))
 		return (1);
+	ft_printf("tut?\n");
 	return (0);
 }
 
 int		is_slice(t_stack *a)
 {
 	t_stack	*ptr;
+	int		max;
+	int		min;
+	int		cur;
 
 	ptr = a;
-	while (ptr->next)
+	min = a->value;
+	while (ptr->next && ptr->value < ptr->next->value)
+		ptr = ptr->next;
+	max = ptr->value;
+	ptr = ptr->next;
+	while (ptr)
 	{
-		while (ptr && ptr->next && ptr->value < ptr->next->value)
-			ptr = ptr->next;
-		if (!ptr || check_point(a, ptr->next, 'a'))
-			return (1);
+		cur = ptr->value;
+		if (cur < min && cur < max)
+		{
+			if (ptr->next && ptr->next->value < cur)
+				return (0);
+			if (!ptr->next)
+				return (1);
+		}
 		else
-			break ;
+			return (0);
+		ptr = ptr->next;
 	}
-	return (0);
+	return (1);
 }

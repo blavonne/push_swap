@@ -20,7 +20,7 @@ void		steps_b(t_stack **b, t_place *cur, int value)
 		cur->steps_to_b = len - cur->steps_to_b;
 		cur->way_to_b = 'b';
 	}
-	ft_printf("steps_b: len b %i value %i steps %i way %c\n", len, value, cur->steps_to_a, cur->way_to_b);
+//	ft_printf("steps_b: len b %i value %i steps %i way %c\n", len, value, cur->steps_to_a, cur->way_to_b);
 }
 
 void		steps_a(t_stack **a, t_place *cur, int value)
@@ -34,7 +34,7 @@ void		steps_a(t_stack **a, t_place *cur, int value)
 	len= 0;
 	ptr = (*a);
 	cur->way_to_a = 't';
-	ft_printf("top a value %i\n", ptr->value);
+//	ft_printf("top a value %i\n", ptr->value);
 	while (ptr)
 	{
 		if (!set && ptr->value > value)
@@ -56,7 +56,7 @@ void		steps_a(t_stack **a, t_place *cur, int value)
 		cur->steps_to_a = len - cur->steps_to_a;
 		cur->way_to_a = 'b';
 	}
-	ft_printf("steps_a: len a %i value %i steps %i way %c\n", len, value, cur->steps_to_a, cur->way_to_a);
+//	ft_printf("steps_a: len a %i value %i steps %i way %c\n", len, value, cur->steps_to_a, cur->way_to_a);
 }
 
 void		set_rr(t_place *cur)

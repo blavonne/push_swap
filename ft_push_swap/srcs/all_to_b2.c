@@ -34,7 +34,7 @@ void			to_b_rb(t_stack **a, t_stack **b, t_info **info, int middle)
 			if (!push_in_vector(&(*info)->cmd_c, PB, sizeof(char)))
 				clean_and_exit(a, b, info, 'm');
 		}
-		if ((*a)->value > middle)
+		else
 			break ;
 	}
 }
@@ -68,23 +68,23 @@ void			do_rotate(t_stack **a, t_stack **b, t_info **info, int middle)
 
 	ptr = (*a);
 	len = 0;
-	bottom = 0;
+	top = 0;
+	bottom = -1;
 	while (ptr)
 	{
-		if (!bottom && ptr->value < middle)
+		if (bottom == -1 && ptr->value < middle)
 		{
 			top = len;
-			bottom = -1;
+			bottom = 0;
 		}
-		if (bottom && ptr->value < middle)
+		if (!bottom && ptr->value < middle)
 			bottom = len;
 		len++;
 		ptr = ptr->next;
 	}
-	bottom > 0 ? bottom = len - bottom : 0;
-	if (top <= bottom)
+	if (top && bottom && top <= bottom)
 		do_ra(a, b, info, top);
-	else
+	if (top && bottom && top > bottom)
 		do_rra(a, b, info, bottom);
 }
 
@@ -92,19 +92,24 @@ void			all_to_b(t_stack **a, t_stack **b, t_info **info)
 {
 	int				middle_val;
 
+//	ft_printf("all to b\n");
 	while ((*a) && (*a)->next && (*a)->next->next && !(is_slice((*a))))
 	{
 		middle_val = get_middle(a, b, info);
+//		ft_printf("try sa outer, middle is %i\n", middle_val);
 		try_sa(a, b, info);
 		while (check_mid((*a), middle_val) && !(is_slice((*a))))
 		{
+//			ft_printf("try sa inner\n");
 			try_sa(a, b, info);
+//			ft_printf("to_b_rb\n");
 			to_b_rb(a, b, info, middle_val);
+			try_sa(a, b, info);
+//			ft_printf("to_b_rrb\n");
 			to_b_rrb(a, b, info, middle_val);
-			if (check_mid((*a), middle_val))
-				do_rotate(a, b, info, middle_val);
+			try_sa(a, b, info);
+//			ft_printf("do_rotate\n");
+			do_rotate(a, b, info, middle_val);
 		}
 	}
-	ft_printf("End cycle, ");
-	print_a(a);
 }
