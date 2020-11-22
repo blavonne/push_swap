@@ -20,12 +20,12 @@ int		main(int argc, char **argv)
 
 	if (argc == 1)
 		return (0);
+	a = NULL;
+	b = NULL;
 	if (!(info = create_main_struct()))
 		clean_and_exit(&a, &b, &info, 'm');
-	a = read_argv(argc, argv, &info->flag);
-	if (a)
+	if ((a = read_argv(argc, argv, &info->flag)))
 	{
-		b = NULL;
 		if (check_asc_order(a, b))
 		{
 			clean_and_exit(&a, &b, 0, 0);
@@ -34,7 +34,9 @@ int		main(int argc, char **argv)
 		get_commands(&a, &b, &info);
 		if (!info->flag)
 			print_info(info);
+		clean_and_exit(&a, &b, &info, 0);
 	}
-	clean_and_exit(&a, &b, &info, 0);
+	else
+		clean_and_exit(&a, &b, &info, 'd');
 	return (0);
 }
