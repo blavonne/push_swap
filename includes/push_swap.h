@@ -130,7 +130,7 @@ void				print_info(t_info *info);
 void		steps_b(t_stack **b, t_place *cur, int value);
 void		steps_a(t_stack **a, t_place *cur, int value);
 
-void		set_rr(t_place *cur);
+void		set_rr(t_place *place);
 void		print_a(t_stack **a);
 int			try_sa(t_stack **a, t_stack **b, t_info **info);
 
