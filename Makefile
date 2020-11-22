@@ -27,12 +27,13 @@ C_SRC = $(C_SRCS)bigint_base.c\
 	$(C_SRCS)spliter.c\
 	$(C_ROOT)main.c\
 
-PS_SRC = $(PS_SRCS)all_to_a.c\
+PS_SRC = $(PS_SRCS)all_to_a2.c\
+	$(PS_SRCS)all_to_a.c\
 	$(PS_SRCS)all_to_b.c\
 	$(PS_SRCS)check_order.c\
 	$(PS_SRCS)cleaner.c\
 	$(PS_SRCS)sort_map.c\
-	$(PS_SRCS)ft_is_slice.c\
+	$(PS_SRCS)is_slice.c\
 	$(PS_SRCS)get_commands.c\
 	$(PS_SRCS)insertion_sort.c\
 	$(PS_SRCS)main_struct.c\

@@ -34,6 +34,15 @@
 # define PB		0b01000000u
 # define PA		0b10000000u
 
+typedef struct		s_place
+{
+	int		steps_to_b;
+	int		steps_to_a;
+	int		near;
+	char	way_to_b;
+	char	way_to_a;
+}					t_place;
+
 typedef struct		s_vector
 {
 	void			*arr;
@@ -48,6 +57,7 @@ typedef struct		s_info
 	t_vector		**cmd_arr;
 	size_t			arr_size;
 	size_t			arr_next;
+	t_place			place;
 }					t_info;
 
 typedef struct		s_stack
@@ -110,6 +120,7 @@ t_map				*set_map(t_map *map, int i);
 int					*merge(int *arr, t_map **map);
 int					*insertion_sort(int *arr, t_map *map);
 void				all_to_a(t_stack **a, t_stack **b, t_info **m);
+int					all_to_a2(t_stack **a, t_stack **b, t_info **info);
 t_vector			*ptr_to_top_b(t_stack *b, t_stack *ptr);
 int					ptr_to_a(t_stack *a, t_stack *ptr, t_vector **way);
 int					set_steps(t_stack *a, t_stack *b, t_stack *ptr, t_info **info);

@@ -18,6 +18,7 @@ t_info			*create_main_struct(void)
 
 	if (!(root = (t_info *)malloc(sizeof(t_info))))
 		return (NULL);
+	ft_bzero(root, sizeof(struct s_info));
 	root->cmd_arr = NULL;
 	root->cmd_c = NULL;
 	root->count_steps_i = NULL;

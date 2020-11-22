@@ -75,7 +75,10 @@ t_info		*get_commands(t_stack **a, t_stack **b)
 	if (!(info = create_main_struct()))
 		clean_and_exit(a, b, 0, 'm');
 	all_to_b(a, b, &info);
-	all_to_a(a, b, &info);
+//	print_info(info);
+//	all_to_a(a, b, &info);
+	all_to_a2(a, b, &info);
+//	print_info(info);
 	if (check_asc_order((*a), 0))
 		return (info);
 	if (!(is_slice(*a)))
