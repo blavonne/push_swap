@@ -25,6 +25,8 @@ int					get_number(char *str, long long *number)
 	int				i;
 
 	i = 0;
+	(*number) = 0;
+	sign = 1;
 	if (str[i] == '-' || str[i] == '+')
 	{
 		sign = (str[i] == '-') ? -1 : 1;
@@ -73,11 +75,11 @@ t_stack				*read_argv(int argc, char **argv, int *flag)
 	i = 1;
 	while (i < argc)
 	{
-		if (ft_strlen(argv[i]) == 0 || ft_strlen(argv[i]) > 11)
+		if (ft_strlen(argv[i]) == 0)
 			return (NULL);
 		if (ft_isnumber(argv[i]))
 		{
-			if (!get_number(argv[i], &number))
+			if (ft_strlen(argv[i]) > 11 || !get_number(argv[i], &number))
 				return (NULL);
 			push_in_stack(&stack, (int)number);
 		}
