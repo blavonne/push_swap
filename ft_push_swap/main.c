@@ -23,15 +23,18 @@ int		main(int argc, char **argv)
 	if (!(info = create_main_struct()))
 		clean_and_exit(&a, &b, &info, 'm');
 	a = read_argv(argc, argv, &info->flag);
-	b = NULL;
-	if (check_asc_order(a, b))
+	if (a)
 	{
-		clean_and_exit(&a, &b, 0, 0);
-		return (0);
+		b = NULL;
+		if (check_asc_order(a, b))
+		{
+			clean_and_exit(&a, &b, 0, 0);
+			return (0);
+		}
+		get_commands(&a, &b, &info);
+		if (!info->flag)
+			print_info(info);
 	}
-	get_commands(&a, &b, &info);
-	if (!info->flag)
-		print_info(info);
 	clean_and_exit(&a, &b, &info, 0);
 	return (0);
 }

@@ -28,6 +28,5 @@ t_info			*create_main_struct(void)
 		return (NULL);
 	}
 	root->arr_size = VARR_SIZE;
-	root->arr_next = 0;
 	return (root);
 }

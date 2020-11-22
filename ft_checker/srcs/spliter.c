@@ -20,10 +20,14 @@ static void	clean_split(char ***matrix)
 	while ((**matrix) && (*matrix) && (*matrix)[i])
 	{
 		free((*matrix)[i]);
+		(*matrix)[i] = NULL;
 		i++;
 	}
 	if ((*matrix))
+	{
 		free((*matrix));
+		(*matrix) = NULL;
+	}
 }
 
 static char	set_delimiter(char *str)
@@ -44,28 +48,42 @@ static char	set_delimiter(char *str)
 	return (delimiter);
 }
 
+int			check_split(char *res, t_stack **stack, long long int *number)
+{
+	if (ft_isnumber(res))
+	{
+		if (get_number(res, number))
+			push_in_stack(stack, (int)(*number));
+		else
+			return (0);
+	}
+	else
+		return (0);
+	return (1);
+}
+
 int			try_to_split(char *str, t_stack **stack)
 {
-	char	delimiter;
-	int		i;
-	char	**res;
+	char			delimiter;
+	int				i;
+	char			**res;
+	long long int	number;
 
 	res = NULL;
 	if (!(delimiter = set_delimiter(str)))
-		clean_and_exit(stack, 0, 0, 'd');
+		return (0);
 	if (!(res = ft_strsplit(str, delimiter)))
-		clean_and_exit(stack, 0, 0, 'm');
+		return (0);
 	i = 0;
-	while (res && res[i])
+	while (res[i])
 	{
-		if (!ft_isnumber(res[i]))
+		if (check_split(res[i], stack, &number))
+			i++;
+		else
 		{
 			clean_split(&res);
-			clean_and_exit(stack, 0, 0, 'd');
+			return (0);
 		}
-		else
-			push_in_stack(stack, get_number(res[i], stack));
-		i++;
 	}
 	clean_split(&res);
 	return (1);

@@ -18,7 +18,6 @@
 # include "printf.h"
 # include <limits.h>
 
-# define BIGINT_SIZE	10
 # define V_SIZE			200u
 # define VARR_SIZE		30u
 
@@ -55,7 +54,6 @@ typedef struct		s_info
 	t_vector		*cmd_c;
 	t_vector		**cmd_arr;
 	size_t			arr_size;
-	size_t			arr_next;
 	t_place			place;
 	int				flag;
 }					t_info;
@@ -74,20 +72,10 @@ typedef struct		s_map
 	int				*size;
 }					t_map;
 
-typedef struct		s_bigint
-{
-	int				bigint[BIGINT_SIZE];
-	int				length;
-	int				sign;
-}					t_bigint;
-
 t_stack				*read_argv(int argc, char **argv, int *flag);
-int					is_flag(char *str);
-t_bigint			initialize_big(t_bigint *elephant);
-int					set_len_big(t_bigint *elephant);
 t_stack				*create_stack(void);
+int					get_number(char *str, long long int *number);
 int					push_in_stack(t_stack **stack, int value);
-int					get_number(char *str, t_stack **stack);
 int					try_to_split(char *str, t_stack **stack);
 
 void				run_command(char *command, t_stack **a, t_stack **b,\

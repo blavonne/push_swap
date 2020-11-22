@@ -12,55 +12,34 @@
 
 #include "push_swap.h"
 
-int					set_number(t_bigint *big, t_stack **stack)
+static int			debug_flag(char *str)
 {
-	int					i;
-	long long int		res;
-
-	i = 1;
-	res = 0;
-	big->length = set_len_big(big);
-	if (big->length == BIGINT_SIZE && big->bigint[big->length - 1] > 2)
-		clean_and_exit(stack, 0, 0, 'd');
-	while (i <= big->length)
-	{
-		res *= 10;
-		res += big->bigint[big->length - i];
-		i++;
-	}
-	if (big->sign == -1)
-		res = -res;
-	if (res > INT_MAX || res < INT_MIN)
-		return (0);
-	return ((int)res);
+	if (ft_strequ(str, "-v"))
+		return (1);
+	return (0);
 }
 
-int					get_number(char *str, t_stack **stack)
+int					get_number(char *str, long long *number)
 {
-	t_bigint	big;
-	int			number;
-	int			i;
-	int			j;
+	int				sign;
+	int				i;
 
-	j = 0;
-	i = (int)ft_strlen(str) - 1;
-	initialize_big(&big);
-	if (i > BIGINT_SIZE)
-		clean_and_exit(stack, 0, 0, 'd');
-	if (ft_issign(str[0]))
-		big.sign = (str[0] == '-') ? -1 : 1;
-	while (i >= 0 && ((ft_issign(str[0]) && j < BIGINT_SIZE + 1) ||\
-	(!ft_issign(str[0]) && j < BIGINT_SIZE)))
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		sign = (str[i] == '-') ? -1 : 1;
+		i++;
+	}
+	while (str[i])
 	{
 		if (ft_isdigit(str[i]))
-			big.bigint[j++] = str[i] - 48;
-		else if (!ft_isdigit(str[i]) && !(i == 0 && (str[i] == '-' || str[i] ==\
-		'+')))
-			clean_and_exit(stack, 0, 0, 'd');
-		i--;
+			(*number) = (*number) * 10 + str[i] - '0';
+		i++;
 	}
-	number = set_number(&big, stack);
-	return (number);
+	(*number) *= sign;
+	if ((*number) < INT_MIN || (*number) > INT_MAX)
+		return (0);
+	return (1);
 }
 
 void				check_duplicates(t_stack **stack)
@@ -86,19 +65,26 @@ void				check_duplicates(t_stack **stack)
 
 t_stack				*read_argv(int argc, char **argv, int *flag)
 {
-	int		i;
-	t_stack	*stack;
+	int				i;
+	t_stack			*stack;
+	long long int	number;
 
 	stack = NULL;
 	i = 1;
 	while (i < argc)
 	{
+		if (ft_strlen(argv[i]) == 0 || ft_strlen(argv[i]) > 11)
+			return (NULL);
 		if (ft_isnumber(argv[i]))
-			push_in_stack(&stack, get_number(argv[i], &stack));
-		else if (!(*flag) && is_flag(argv[i]))
+		{
+			if (!get_number(argv[i], &number))
+				return (NULL);
+			push_in_stack(&stack, (int)number);
+		}
+		else if (!(*flag) && debug_flag(argv[i]))
 			*flag = 1;
-		else
-			try_to_split(argv[i], &stack);
+		else if (!(try_to_split(argv[i], &stack)))
+				return (NULL);
 		i++;
 	}
 	check_duplicates(&stack);

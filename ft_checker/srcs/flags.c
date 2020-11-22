@@ -1,12 +1,5 @@
 #include "push_swap.h"
 
-int			is_flag(char *str)
-{
-	if (ft_strequ(str, "-v"))
-		return (1);
-	return (0);
-}
-
 void		print_one(t_stack *ptr_a, t_stack *ptr_b)
 {
 	while (ptr_a)

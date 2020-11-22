@@ -21,7 +21,7 @@ int		ft_isnumber(char *str)
 	{
 		if (!i && ft_issign(str[i]))
 			i++;
-		if (!ft_isdigit(str[i]))
+		if (!str[i] || !ft_isdigit(str[i]))
 			return (0);
 		i++;
 	}

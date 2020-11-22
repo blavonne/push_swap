@@ -17,8 +17,7 @@ PS_ROOT = ./ft_push_swap/
 PS_SRCS = $(PS_ROOT)srcs/
 PS_INC = ./includes/
 
-C_SRC = $(C_SRCS)bigint_base.c\
-	$(C_SRCS)commander.c\
+C_SRC = $(C_SRCS)commander.c\
 	$(C_SRCS)flags.c\
 	$(C_SRCS)reader.c\
 	$(C_SRCS)stack_handler.c\
@@ -49,7 +48,6 @@ PS_SRC = $(PS_SRCS)all_to_b.c\
 	$(C_SRCS)stack_handler.c\
 	$(C_SRCS)reader.c\
 	$(C_SRCS)commander.c\
-	$(C_SRCS)bigint_base.c\
 	$(C_SRCS)spliter.c\
 	$(C_SRCS)checker.c\
 	$(C_SRCS)flags.c\
