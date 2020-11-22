@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   all_to_b.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: blavonne <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/22 02:34:11 by blavonne          #+#    #+#             */
-/*   Updated: 2020/08/22 02:34:50 by blavonne         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "push_swap.h"
 
 /*
@@ -33,119 +21,120 @@ int			try_sa(t_stack **a, t_stack **b, t_info **info)
 	return (0);
 }
 
-/*
-** ==========PB_FORWARD==========
-** This func pushes numbers less than middle_val from top A to top B
-*/
-
-static void		pb_forward(t_stack **a, t_stack **b, t_info **info,\
-		int middle_val)
+void			to_b_rrb(t_stack **a, t_stack **b, t_info **info, int middle)
 {
-	t_stack		*ptr;
+	int		value;
 
-	ptr = (*a);
-	while (ptr && ptr->value < middle_val && !(is_slice((*a))) &&\
-	!try_sa(a, b, info))
+	while ((*a) && !is_slice((*a)))
 	{
-		run_command("pb", a, b, 0);
-		if (!push_in_vector(&(*info)->cmd_c, PB, sizeof(char)))
-			clean_and_exit(a, b, info, 'm');
-		ptr = (*a);
-	}
-}
-
-/*
-** ==========PB_BACK==========
-** This func pushes numbers less than middle_val from bottom A to top B
-*/
-
-static void		pb_back(t_stack **a, t_stack **b, t_info **info,\
-		int middle_val)
-{
-	t_stack		*ptr;
-
-	ptr = (*a);
-	while (ptr && ptr->value < middle_val && !(is_slice((*a))) &&\
-	!try_sa(a, b, info))
-	{
-		if (!push_in_vector(&(*info)->cmd_c, RRA, sizeof(char)))
-			clean_and_exit(a, b, info, 'm');
-		run_command("pb", a, b, 0);
-		if (!push_in_vector(&(*info)->cmd_c, PB, sizeof(char)))
-			clean_and_exit(a, b, info, 'm');
-		run_command("rra", a, b, 0);
-		ptr = (*a);
-	}
-}
-
-/*
-** ==========RA==========
-** This func rotates A till a-value is more or equal middle_val
-*/
-
-static void		ra(t_stack **a, t_stack **b, t_info **info, int middle_val)
-{
-	t_stack *ptr;
-
-	ptr = (*a);
-	while (ptr && check_mid(*a, middle_val) && ptr->value >= middle_val\
-	&& !(is_slice((*a))) && !try_sa(a, b, info))
-	{
-		run_command("ra", a, b, 0);
-		if (!push_in_vector(&(*info)->cmd_c, RA, sizeof(char)))
-			clean_and_exit(a, b, info, 'm');
-		ptr = (*a);
-	}
-}
-
-/*
-** ==========ALL_TO_B==========
-** This func keeps the biggest sorted by ascending order numbers in A
-** and other numbers puts in B
-*/
-
-void			all_to_b_old(t_stack **a, t_stack **b, t_info **info)
-{
-	int				middle_val;
-
-	while ((*a) && (*a)->next && (*a)->next->next && !(is_slice((*a))))
-	{
-		middle_val = get_middle(a, b, info);
-		try_sa(a, b, info);
-		while (check_mid((*a), middle_val) && !(is_slice((*a))))
+		run_command("rra", a, b, (*info)->flag);
+		value = (*a)->value;
+		if (value < middle)
 		{
-			try_sa(a, b, info);
-			//ft_printf("###1 ");
-			print_a(a);
-			pb_forward(a, b, info, middle_val);
-			run_command("rra", a, b, (*info)->flag);
-			//ft_printf("###2 ");
-			print_a(a);
-			try_sa(a, b, info);
-			//ft_printf("###3 ");
-			print_a(a);
-			pb_back(a, b, info, middle_val);
+			if (!push_in_vector(&(*info)->cmd_c, RRA, sizeof(char)))
+				clean_and_exit(a, b, info, 'm');
+			run_command("pb", a, b, (*info)->flag);
+			if (!push_in_vector(&(*info)->cmd_c, PB, sizeof(char)))
+				clean_and_exit(a, b, info, 'm');
+		}
+		else
+		{
 			run_command("ra", a, b, (*info)->flag);
-			//ft_printf("###4 ");
-			print_a(a);
-			ra(a, b, info, middle_val);
-			//ft_printf("###5 ");
-			print_a(a);
+			break ;
 		}
 	}
-	ft_printf("End cycle, ");
-	print_a(a);
 }
 
-void		print_a(t_stack **a)
+void			to_b_rb(t_stack **a, t_stack **b, t_info **info, int middle)
 {
+	while ((*a) && !is_slice((*a)))
+	{
+		if ((*a)->value < middle)
+		{
+			run_command("pb", a, b, (*info)->flag);
+			if (!push_in_vector(&(*info)->cmd_c, PB, sizeof(char)))
+				clean_and_exit(a, b, info, 'm');
+		}
+		else
+			break ;
+	}
+}
+
+void			do_ra(t_stack **a, t_stack **b, t_info **info, int i)
+{
+	while (i--)
+	{
+		run_command("ra", a, 0, (*info)->flag);
+		if (!push_in_vector(&(*info)->cmd_c, RA, sizeof(char)))
+			clean_and_exit(a, b, info, 'm');
+	}
+}
+
+void			do_rra(t_stack **a, t_stack **b, t_info **info, int i)
+{
+	while (i--)
+	{
+		run_command("rra", a, 0, (*info)->flag);
+		if (!push_in_vector(&(*info)->cmd_c, RRA, sizeof(char)))
+			clean_and_exit(a, b, info, 'm');
+	}
+}
+
+void			do_rotate(t_stack **a, t_stack **b, t_info **info, int middle)
+{
+	int		len;
+	int		top;
+	int		bottom;
 	t_stack	*ptr;
 
 	ptr = (*a);
-	ft_printf("A-status:\n");
+	len = 0;
+	top = 0;
+	bottom = -1;
 	while (ptr)
 	{
-		ft_printf("%i\n", ptr->value);
+		if (bottom == -1 && ptr->value < middle)
+		{
+			top = len;
+			bottom = 0;
+		}
+		if (!bottom && ptr->value < middle)
+			bottom = len;
+		len++;
+//		ft_printf("top %i bottom %i len %i\n", top, bottom, len);
 		ptr = ptr->next;
+	}
+	if (!top && bottom == -1)
+		return ;
+	else if (top && bottom && top <= bottom)
+		do_ra(a, b, info, top);
+	else if (top && bottom && top > bottom)
+		do_rra(a, b, info, bottom);
+}
+
+void			all_to_b(t_stack **a, t_stack **b, t_info **info)
+{
+	int				middle_val;
+
+	//ft_printf("all to b\n");
+	while ((*a) && (*a)->next && (*a)->next->next && !(is_slice((*a))))
+	{
+		middle_val = get_middle(a, b, info);
+		//ft_printf("try sa outer, middle is %i\n", middle_val);
+		try_sa(a, b, info);
+		while (check_mid((*a), middle_val) && !(is_slice((*a))))
+		{
+			//ft_printf("try sa inner\n");
+			try_sa(a, b, info);
+			//ft_printf("to_b_rb\n");
+			to_b_rb(a, b, info, middle_val);
+			try_sa(a, b, info);
+			//ft_printf("to_b_rrb\n");
+			to_b_rrb(a, b, info, middle_val);
+			try_sa(a, b, info);
+			//ft_printf("do_rotate\n");
+			do_rotate(a, b, info, middle_val);
+			//ft_printf("do_rotate end\n");
+		}
 	}
 }
