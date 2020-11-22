@@ -95,25 +95,25 @@ void			all_to_b(t_stack **a, t_stack **b, t_info **info)
 {
 	int				middle_val;
 
-	ft_printf("all to b\n");
+	//ft_printf("all to b\n");
 	while ((*a) && (*a)->next && (*a)->next->next && !(is_slice((*a))))
 	{
 		middle_val = get_middle(a, b, info);
-		ft_printf("try sa outer, middle is %i\n", middle_val);
+		//ft_printf("try sa outer, middle is %i\n", middle_val);
 		try_sa(a, b, info);
 		while (check_mid((*a), middle_val) && !(is_slice((*a))))
 		{
-			ft_printf("try sa inner\n");
+			//ft_printf("try sa inner\n");
 			try_sa(a, b, info);
-			ft_printf("to_b_rb\n");
+			//ft_printf("to_b_rb\n");
 			to_b_rb(a, b, info, middle_val);
 			try_sa(a, b, info);
-			ft_printf("to_b_rrb\n");
+			//ft_printf("to_b_rrb\n");
 			to_b_rrb(a, b, info, middle_val);
 			try_sa(a, b, info);
-			ft_printf("do_rotate\n");
+			//ft_printf("do_rotate\n");
 			do_rotate(a, b, info, middle_val);
-			ft_printf("do_rotate end\n");
+			//ft_printf("do_rotate end\n");
 		}
 	}
 }
