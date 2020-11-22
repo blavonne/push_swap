@@ -45,14 +45,9 @@ int		is_slice(t_stack *a)
 	while (ptr)
 	{
 		cur = ptr->value;
-		if (cur < min && cur < max)
-		{
-			if (ptr->next && ptr->next->value < cur)
-				return (0);
-			if (!ptr->next)
-				return (1);
-		}
-		else
+		if (!(cur < min && cur < max))
+			return (0);
+		if (ptr->next && ptr->next->value < cur)
 			return (0);
 		ptr = ptr->next;
 	}

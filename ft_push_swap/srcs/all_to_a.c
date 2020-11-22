@@ -88,14 +88,6 @@ void		to_a(t_stack **a, t_stack **b, t_info **info)
 	}
 }
 
-void		print_place(t_place place)
-{
-	ft_printf("Place:\n");
-	ft_printf("way to a %c, steps %i\nway to b %c, steps %i\nrr %i\n",\
-	place.way_to_a, place.steps_to_a, place.way_to_b, place.steps_to_b,\
-	place.rr);
-}
-
 int			all_to_a(t_stack **a, t_stack **b, t_info **info)
 {
 	t_place	cur;
@@ -113,10 +105,7 @@ int			all_to_a(t_stack **a, t_stack **b, t_info **info)
 		ptr = ptr->next;
 	}
 	set_rr(&(*info)->place);
-//	print_status(a, b, "до rr");
-//	print_place((*info)->place);
 	do_rr(a, b, info);
-//	print_status(a, b, "после rr");
 	to_top_b(a, b, info);
 	to_a(a, b, info);
 	ft_bzero(&(*info)->place, sizeof(cur));
