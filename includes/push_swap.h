@@ -116,6 +116,8 @@ void				destroy_stack(t_stack **stack);
 void				destroy_varr(t_info **m);
 
 void				all_to_b(t_stack **a, t_stack **b, t_info **info);
+void				do_rotate(t_stack **a, t_stack **b, t_info **info,\
+					int middle);
 int					check_mid(t_stack *a, int middle);
 int					get_middle(t_stack **a, t_stack **b, t_info **info);
 void				get_commands(t_stack **a, t_stack **b, t_info **info);
@@ -127,8 +129,8 @@ int					all_to_a(t_stack **a, t_stack **b, t_info **info);
 int					cat_vectors(t_vector **dest, t_vector *src);
 
 void				print_info(t_info *info);
-void		steps_b(t_stack **b, t_place *cur, int value);
-void		steps_a(t_stack **a, t_place *cur, int value);
+void				steps_b(t_stack **b, t_place *cur, int value);
+void				steps_a(t_stack **a, t_place *cur, int value);
 
 void		set_rr(t_place *place);
 void		print_a(t_stack **a);

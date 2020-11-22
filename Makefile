@@ -34,6 +34,7 @@ PS_SRC = $(PS_SRCS)all_to_b.c\
 	$(PS_SRCS)steps_to_a.c\
 	$(PS_SRCS)check_order.c\
 	$(PS_SRCS)cleaner.c\
+	$(PS_SRCS)do_rotate.c\
 	$(PS_SRCS)sort_map.c\
 	$(PS_SRCS)is_slice.c\
 	$(PS_SRCS)get_commands.c\
