@@ -45,13 +45,13 @@ void		to_top_b(t_stack **a, t_stack **b, t_info **info)
 	{
 		if ((*info)->place.way_to_b == 't')
 		{
-			run_command("rb", 0, b, (*info)->flag);
+			run_command("rb", a, b, (*info)->flag);
 			if (!push_in_vector(&(*info)->cmd_c, RB, sizeof(char)))
 				clean_and_exit(a, b, info, 'm');
 		}
 		else
 		{
-			run_command("rrb", 0, b, (*info)->flag);
+			run_command("rrb", a, b, (*info)->flag);
 			if (!push_in_vector(&(*info)->cmd_c, RRB, sizeof(char)))
 				clean_and_exit(a, b, info, 'm');
 		}
@@ -68,13 +68,13 @@ void		to_a(t_stack **a, t_stack **b, t_info **info)
 	{
 		if ((*info)->place.way_to_a == 't')
 		{
-			run_command("ra", a, 0, (*info)->flag);
+			run_command("ra", a, b, (*info)->flag);
 			if (!push_in_vector(&(*info)->cmd_c, RA, sizeof(char)))
 				clean_and_exit(a, b, info, 'm');
 		}
 		else
 		{
-			run_command("rra", a, 0, (*info)->flag);
+			run_command("rra", a, b, (*info)->flag);
 			if (!push_in_vector(&(*info)->cmd_c, RRA, sizeof(char)))
 				clean_and_exit(a, b, info, 'm');
 		}

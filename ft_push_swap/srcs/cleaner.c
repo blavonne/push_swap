@@ -59,8 +59,6 @@ void		destroy_main(t_info **m)
 	{
 		destroy_vector(&(*m)->cmd_c);
 		(*m)->cmd_c = NULL;
-		destroy_vector(&(*m)->count_steps_i);
-		(*m)->count_steps_i = NULL;
 		destroy_varr(m);
 	}
 	free(*m);

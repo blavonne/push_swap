@@ -38,7 +38,6 @@ typedef struct		s_place
 {
 	int		steps_to_b;
 	int		steps_to_a;
-	int		near;
 	int		rr;
 	char	way_to_b;
 	char	way_to_a;
@@ -54,7 +53,6 @@ typedef struct		s_vector
 typedef struct		s_info
 {
 	t_vector		*cmd_c;
-	t_vector		*count_steps_i;
 	t_vector		**cmd_arr;
 	size_t			arr_size;
 	size_t			arr_next;
@@ -85,11 +83,9 @@ typedef struct		s_bigint
 
 t_stack				*read_argv(int argc, char **argv, int *flag);
 int					is_flag(char *str);
-void				print_status(t_stack **a, t_stack **b, char *command);
 t_bigint			initialize_big(t_bigint *elephant);
 int					set_len_big(t_bigint *elephant);
 t_stack				*create_stack(void);
-t_stack				*copy_stack(t_stack *src);
 int					push_in_stack(t_stack **stack, int value);
 int					get_number(char *str, t_stack **stack);
 int					try_to_split(char *str, t_stack **stack);
@@ -98,14 +94,9 @@ void				run_command(char *command, t_stack **a, t_stack **b,\
 					int flag);
 int					check_command(char *cmd);
 
-int					check_asc_order(t_stack *a, t_stack *b);
-int					is_slice(t_stack *a);
-
 t_info				*create_main_struct(void);
 t_vector			*create_vector(void);
 int					push_in_vector(t_vector **v, int value, size_t size);
-t_vector			**create_varr(void);
-int					push_in_varr(t_info **m, t_vector *tmp);
 
 void				clean_and_exit(t_stack **a, t_stack **b, t_info **m,\
 					char option);
@@ -115,25 +106,32 @@ void				destroy_vector(t_vector **v);
 void				destroy_stack(t_stack **stack);
 void				destroy_varr(t_info **m);
 
+void				get_commands(t_stack **a, t_stack **b, t_info **info);
 void				all_to_b(t_stack **a, t_stack **b, t_info **info);
-void				do_rotate(t_stack **a, t_stack **b, t_info **info,\
-					int middle);
 int					check_mid(t_stack *a, int middle);
 int					get_middle(t_stack **a, t_stack **b, t_info **info);
-void				get_commands(t_stack **a, t_stack **b, t_info **info);
 int					*timsort(int *arr, int size);
 t_map				*set_map(t_map *map, int i);
 int					*merge(int *arr, t_map **map);
 int					*insertion_sort(int *arr, t_map *map);
+int					is_slice(t_stack *a);
+void				sort_slice(t_stack **a, t_stack **b, t_info **info);
+void				do_rotate(t_stack **a, t_stack **b, t_info **info,\
+					int middle);
+int					try_sa(t_stack **a, t_stack **b, t_info **info);
 int					all_to_a(t_stack **a, t_stack **b, t_info **info);
-int					cat_vectors(t_vector **dest, t_vector *src);
-
-void				print_info(t_info *info);
 void				steps_b(t_stack **b, t_place *cur, int value);
 void				steps_a(t_stack **a, t_place *cur, int value);
+void				set_rr(t_place *place);
+int					check_asc_order(t_stack *a, t_stack *b);
 
-void		set_rr(t_place *place);
-void		print_a(t_stack **a);
-int			try_sa(t_stack **a, t_stack **b, t_info **info);
+void				print_info(t_info *info);
+void				print_status(t_stack **a, t_stack **b, char *command,\
+					int flag);
+
+t_stack				*copy_stack(t_stack *src);
+int					cat_vectors(t_vector **dest, t_vector *src);
+t_vector			**create_varr(void);
+int					push_in_varr(t_info **m, t_vector *tmp);
 
 #endif

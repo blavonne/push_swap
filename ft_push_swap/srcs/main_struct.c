@@ -21,10 +21,8 @@ t_info			*create_main_struct(void)
 	ft_bzero(root, sizeof(struct s_info));
 	root->cmd_arr = NULL;
 	root->cmd_c = NULL;
-	root->count_steps_i = NULL;
 	root->cmd_c = create_vector();
-	root->count_steps_i = create_vector();
-	if (!root->cmd_c || !root->count_steps_i)
+	if (!root->cmd_c)
 	{
 		destroy_main(&root);
 		return (NULL);

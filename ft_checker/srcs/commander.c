@@ -105,6 +105,5 @@ void			run_command(char *command, t_stack **a, t_stack **b, int flag)
 		run_rr(a);
 		run_rr(b);
 	}
-	if (flag && a && b)
-		print_status(a, b, command);
+	print_status(a, b, command, flag);
 }

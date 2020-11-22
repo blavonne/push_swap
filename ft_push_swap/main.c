@@ -54,7 +54,8 @@ int		main(int argc, char **argv)
 		return (0);
 	}
 	get_commands(&a, &b, &info);
-	print_info(info);
+	if (!info->flag)
+		print_info(info);
 	clean_and_exit(&a, &b, &info, 0);
 	return (0);
 }
