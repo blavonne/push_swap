@@ -30,24 +30,6 @@ static void	clean_split(char ***matrix)
 	}
 }
 
-static char	set_delimiter(char *str)
-{
-	int		i;
-	char	delimiter;
-
-	i = 0;
-	if (!str)
-		return (0);
-	if (!ft_issign(str[0]) && !ft_isdigit(str[0]))
-		return (0);
-	else
-		i++;
-	while (str[i] && ft_isdigit(str[i]))
-		i++;
-	delimiter = str[i];
-	return (delimiter);
-}
-
 int			check_split(char *res, t_stack **stack, long long int *number)
 {
 	if (ft_isnumber(res))
@@ -64,15 +46,12 @@ int			check_split(char *res, t_stack **stack, long long int *number)
 
 int			try_to_split(char *str, t_stack **stack)
 {
-	char			delimiter;
 	int				i;
 	char			**res;
 	long long int	number;
 
 	res = NULL;
-	if (!(delimiter = set_delimiter(str)))
-		return (0);
-	if (!(res = ft_strsplit(str, delimiter)))
+	if (!(res = ft_strsplit(str, 32)))
 		return (0);
 	i = 0;
 	while (res[i])
