@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   steps.c                                            :+:      :+:    :+:   */
+/*   steps_to_a.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blavonne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,37 +12,40 @@
 
 #include "push_swap.h"
 
-void		steps_b(t_stack **b, t_place *cur, int value)
+static void	reset_a_way(t_place *cur, int len)
 {
-	t_stack	*ptr;
-	int		len;
-
-	len = 0;
-	ptr = (*b);
-	cur->way_to_b = 't';
-	while (ptr)
+	if (len - cur->steps_to_a < cur->steps_to_a)
 	{
-		if (ptr->value == value)
-			cur->steps_to_b = len;
-		len++;
-		ptr = ptr->next;
-	}
-	if (len - cur->steps_to_b < cur->steps_to_b)
-	{
-		cur->steps_to_b = len - cur->steps_to_b;
-		cur->way_to_b = 'b';
+		cur->steps_to_a = len - cur->steps_to_a;
+		cur->way_to_a = 'b';
 	}
 }
 
-void		set_rr(t_place *place)
+void		steps_a(t_stack **a, t_place *cur, int value)
 {
-	int rr;
+	t_stack	*ptr;
+	int		min;
+	int		set;
+	int		len;
 
-	if (place->way_to_b == place->way_to_a)
+	set = 0;
+	len = 0;
+	ptr = (*a);
+	cur->way_to_a = 't';
+	while (ptr)
 	{
-		rr = (int)ft_min(place->steps_to_a, place->steps_to_b);
-		place->steps_to_a -= rr;
-		place->steps_to_b -= rr;
-		place->rr = rr;
+		if (!set && ptr->value > value && (set = 1))
+		{
+			cur->steps_to_a = len;
+			min = ptr->value;
+		}
+		if (set && ptr->value < min && ptr->value > value)
+		{
+			min = ptr->value;
+			cur->steps_to_a = len;
+		}
+		len++;
+		ptr = ptr->next;
 	}
+	reset_a_way(cur, len);
 }
