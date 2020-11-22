@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   print_info.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blavonne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,26 +12,26 @@
 
 #include "push_swap.h"
 
-int		main(int argc, char **argv)
+void	print_info(t_info *info)
 {
-	t_stack	*a;
-	t_stack	*b;
-	t_info	*info;
+	size_t			i;
+	unsigned char	*arr;
 
-	if (argc == 1)
-		return (0);
-	if (!(info = create_main_struct()))
-		clean_and_exit(&a, &b, &info, 'm');
-	a = read_argv(argc, argv, &info->flag);
-	b = NULL;
-	if (check_asc_order(a, b))
+	i = 0;
+	arr = info->cmd_c->arr;
+	while (i < info->cmd_c->size)
 	{
-		clean_and_exit(&a, &b, 0, 0);
-		return (0);
+		arr[i] == RB ? ft_printf("%s\n", "rb") : 0;
+		arr[i] == RA ? ft_printf("%s\n", "ra") : 0;
+		arr[i] == SA ? ft_printf("%s\n", "sa") : 0;
+		arr[i] == SB ? ft_printf("%s\n", "sb") : 0;
+		arr[i] == SS ? ft_printf("%s\n", "ss") : 0;
+		arr[i] == RRA ? ft_printf("%s\n", "rra") : 0;
+		arr[i] == RRB ? ft_printf("%s\n", "rrb") : 0;
+		arr[i] == PA ? ft_printf("%s\n", "pa") : 0;
+		arr[i] == PB ? ft_printf("%s\n", "pb") : 0;
+		arr[i] == RR ? ft_printf("%s\n", "rr") : 0;
+		arr[i] == RRR ? ft_printf("%s\n", "rrr") : 0;
+		i++;
 	}
-	get_commands(&a, &b, &info);
-	if (!info->flag)
-		print_info(info);
-	clean_and_exit(&a, &b, &info, 0);
-	return (0);
 }

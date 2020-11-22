@@ -42,10 +42,10 @@ PS_SRC = $(PS_SRCS)all_to_b.c\
 	$(PS_SRCS)insertion_sort.c\
 	$(PS_SRCS)main_struct.c\
 	$(PS_SRCS)middle_handler.c\
+	$(PS_SRCS)print_info.c\
 	$(PS_SRCS)timsort.c\
 	$(PS_SRCS)timsort_merge.c\
 	$(PS_SRCS)vector.c\
-	$(PS_SRCS)vector_arr.c\
 	$(C_SRCS)stack_handler.c\
 	$(C_SRCS)reader.c\
 	$(C_SRCS)commander.c\
