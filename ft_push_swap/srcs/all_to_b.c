@@ -114,11 +114,37 @@ void			all_to_b(t_stack **a, t_stack **b, t_info **info)
 		while (check_mid((*a), middle_val) && !(is_slice((*a))))
 		{
 			try_sa(a, b, info);
+			ft_printf("###1 ");
+			print_a(a);
 			pb_forward(a, b, info, middle_val);
 			run_command("rra", a, b);
+			ft_printf("###2 ");
+			print_a(a);
+			try_sa(a, b, info);
+			ft_printf("###3 ");
+			print_a(a);
 			pb_back(a, b, info, middle_val);
 			run_command("ra", a, b);
+			ft_printf("###4 ");
+			print_a(a);
 			ra(a, b, info, middle_val);
+			ft_printf("###5 ");
+			print_a(a);
 		}
+	}
+	ft_printf("End cycle, ");
+	print_a(a);
+}
+
+void		print_a(t_stack **a)
+{
+	t_stack	*ptr;
+
+	ptr = (*a);
+	ft_printf("A-status:\n");
+	while (ptr)
+	{
+		ft_printf("%i\n", ptr->value);
+		ptr = ptr->next;
 	}
 }

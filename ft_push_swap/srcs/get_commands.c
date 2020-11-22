@@ -77,7 +77,6 @@ t_info		*get_commands(t_stack **a, t_stack **b)
 	all_to_b(a, b, &info);
 //	print_info(info);
 	all_to_a(a, b, &info);
-//	all_to_a2(a, b, &info);
 //	print_info(info);
 	if (check_asc_order((*a), 0))
 		return (info);

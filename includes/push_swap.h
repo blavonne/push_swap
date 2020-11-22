@@ -127,5 +127,7 @@ void		steps_b(t_stack **b, t_place *cur, int value);
 void		steps_a(t_stack **a, t_place *cur, int value);
 
 void		set_rr(t_place *cur);
+void		print_a(t_stack **a);
+int			try_sa(t_stack **a, t_stack **b, t_info **info);
 
 #endif
