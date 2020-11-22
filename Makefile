@@ -18,7 +18,7 @@ PS_SRCS = $(PS_ROOT)srcs/
 PS_INC = ./includes/
 
 C_SRC = $(C_SRCS)commander.c\
-	$(C_SRCS)flags.c\
+	$(C_SRCS)print_debug.c\
 	$(C_SRCS)reader.c\
 	$(C_SRCS)stack_handler.c\
 	$(C_SRCS)checker.c\
@@ -50,7 +50,7 @@ PS_SRC = $(PS_SRCS)all_to_b.c\
 	$(C_SRCS)commander.c\
 	$(C_SRCS)spliter.c\
 	$(C_SRCS)checker.c\
-	$(C_SRCS)flags.c\
+	$(C_SRCS)print_debug.c\
 	$(PS_ROOT)main.c\
 
 C_OBJ = $(C_SRC:%.c=%.o)
