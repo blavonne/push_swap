@@ -29,6 +29,7 @@ C_SRC = $(C_SRCS)bigint_base.c\
 
 PS_SRC = $(PS_SRCS)all_to_b.c\
 	$(PS_SRCS)all_to_a.c\
+	$(PS_SRCS)steps.c\
 	$(PS_SRCS)check_order.c\
 	$(PS_SRCS)cleaner.c\
 	$(PS_SRCS)sort_map.c\

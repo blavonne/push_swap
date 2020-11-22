@@ -9,10 +9,8 @@ int			all_to_a2(t_stack **a, t_stack **b, t_info **info)
 	ft_bzero(&cur, sizeof(cur));
 	while (ptr)
 	{
-		steps_top_rb(a, b, &cur);
-		steps_top_rrb(a, b, &cur);
-		steps_a_ra(a, b, &cur);
-		steps_a_rra(a, b, &cur);
+		steps_b(b, &cur, ptr->value);
+		steps_a(a, &cur, ptr->value);
 		set_rr(&cur);
 		if (!(*info)->place.way_to_a || (cur.steps_to_a + cur.steps_to_b <\
 		(*info)->place.steps_to_b + (*info)->place.steps_to_a))

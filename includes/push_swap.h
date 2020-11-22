@@ -128,5 +128,9 @@ int					cat_vectors(t_vector **dest, t_vector *src);
 void				optimize_way(t_vector *way);
 
 void				print_info(t_info *info);
+void		steps_b(t_stack **b, t_place *cur, int value);
+void		steps_a(t_stack **a, t_place *cur, int value);
+
+void		set_rr(t_place *cur);
 
 #endif

@@ -42,6 +42,7 @@ SRC = errors.c\
 		ft_memdel.c\
 		ft_memmove.c\
 		ft_memset.c\
+		ft_min.c\
 		ft_pow.c\
 		ft_putchar.c\
 		ft_putchar_fd.c\
