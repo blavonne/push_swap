@@ -39,6 +39,7 @@ typedef struct		s_place
 	int		steps_to_b;
 	int		steps_to_a;
 	int		near;
+	int		rr;
 	char	way_to_b;
 	char	way_to_a;
 }					t_place;

@@ -62,7 +62,9 @@ void		set_rr(t_place *cur)
 
 	if (cur->way_to_b == cur->way_to_a)
 	{
-		rr = ft_min(cur->steps_to_a, cur->steps_to_b);
-
+		rr = (int)ft_min(cur->steps_to_a, cur->steps_to_b);
+		cur->steps_to_a -= rr;
+		cur->steps_to_b -= rr;
+		cur->rr = rr;
 	}
 }
