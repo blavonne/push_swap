@@ -80,7 +80,7 @@ static void		run_rr(t_stack **stack)
 	}
 }
 
-void			run_command(char *command, t_stack **a, t_stack **b)
+void			run_command(char *command, t_stack **a, t_stack **b, int flag)
 {
 	ft_strequ("sa", command) ? run_s(a) : 0;
 	ft_strequ("sb", command) ? run_s(b) : 0;
@@ -105,4 +105,6 @@ void			run_command(char *command, t_stack **a, t_stack **b)
 		run_rr(a);
 		run_rr(b);
 	}
+	if (flag && a && b)
+		print_status(a, b, command);
 }

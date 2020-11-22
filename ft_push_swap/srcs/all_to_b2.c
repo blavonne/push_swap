@@ -6,19 +6,19 @@ void			to_b_rrb(t_stack **a, t_stack **b, t_info **info, int middle)
 
 	while ((*a) && !is_slice((*a)))
 	{
-		run_command("rra", a, b);
+		run_command("rra", a, b, (*info)->flag);
 		value = (*a)->value;
 		if (value < middle)
 		{
 			if (!push_in_vector(&(*info)->cmd_c, RRA, sizeof(char)))
 				clean_and_exit(a, b, info, 'm');
-			run_command("pb", a, b);
+			run_command("pb", a, b, (*info)->flag);
 			if (!push_in_vector(&(*info)->cmd_c, PB, sizeof(char)))
 				clean_and_exit(a, b, info, 'm');
 		}
 		else
 		{
-			run_command("ra", a, b);
+			run_command("ra", a, b, (*info)->flag);
 			break ;
 		}
 	}
@@ -30,7 +30,7 @@ void			to_b_rb(t_stack **a, t_stack **b, t_info **info, int middle)
 	{
 		if ((*a)->value < middle)
 		{
-			run_command("pb", a, b);
+			run_command("pb", a, b, (*info)->flag);
 			if (!push_in_vector(&(*info)->cmd_c, PB, sizeof(char)))
 				clean_and_exit(a, b, info, 'm');
 		}
@@ -43,7 +43,8 @@ void			do_ra(t_stack **a, t_stack **b, t_info **info, int i)
 {
 	while (i--)
 	{
-		run_command("ra", a, 0);
+		print_a(a);
+		run_command("ra", a, 0, (*info)->flag);
 		if (!push_in_vector(&(*info)->cmd_c, RA, sizeof(char)))
 			clean_and_exit(a, b, info, 'm');
 	}
@@ -53,7 +54,8 @@ void			do_rra(t_stack **a, t_stack **b, t_info **info, int i)
 {
 	while (i--)
 	{
-		run_command("rra", a, 0);
+		ft_printf("qwe\n");
+		run_command("rra", a, 0, (*info)->flag);
 		if (!push_in_vector(&(*info)->cmd_c, RRA, sizeof(char)))
 			clean_and_exit(a, b, info, 'm');
 	}
@@ -80,6 +82,7 @@ void			do_rotate(t_stack **a, t_stack **b, t_info **info, int middle)
 		if (!bottom && ptr->value < middle)
 			bottom = len;
 		len++;
+		ft_printf("top %i bottom %i len %i\n", top, bottom, len);
 		ptr = ptr->next;
 	}
 	if (top && bottom && top <= bottom)
@@ -92,24 +95,25 @@ void			all_to_b(t_stack **a, t_stack **b, t_info **info)
 {
 	int				middle_val;
 
-//	ft_printf("all to b\n");
+	ft_printf("all to b\n");
 	while ((*a) && (*a)->next && (*a)->next->next && !(is_slice((*a))))
 	{
 		middle_val = get_middle(a, b, info);
-//		ft_printf("try sa outer, middle is %i\n", middle_val);
+		ft_printf("try sa outer, middle is %i\n", middle_val);
 		try_sa(a, b, info);
 		while (check_mid((*a), middle_val) && !(is_slice((*a))))
 		{
-//			ft_printf("try sa inner\n");
+			ft_printf("try sa inner\n");
 			try_sa(a, b, info);
-//			ft_printf("to_b_rb\n");
+			ft_printf("to_b_rb\n");
 			to_b_rb(a, b, info, middle_val);
-//			try_sa(a, b, info);
-//			ft_printf("to_b_rrb\n");
+			try_sa(a, b, info);
+			ft_printf("to_b_rrb\n");
 			to_b_rrb(a, b, info, middle_val);
-//			try_sa(a, b, info);
-//			ft_printf("do_rotate\n");
+			try_sa(a, b, info);
+			ft_printf("do_rotate\n");
 			do_rotate(a, b, info, middle_val);
+			ft_printf("do_rotate end\n");
 		}
 	}
 }

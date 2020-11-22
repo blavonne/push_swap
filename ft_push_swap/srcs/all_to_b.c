@@ -20,7 +20,7 @@
 
 int			try_sa(t_stack **a, t_stack **b, t_info **info)
 {
-	run_command("sa", a, 0);
+	run_command("sa", a, 0, 0);
 	if (is_slice(*a))
 	{
 //		ft_printf("is slice\n");
@@ -29,7 +29,7 @@ int			try_sa(t_stack **a, t_stack **b, t_info **info)
 		return (1);
 	}
 	else
-		run_command("sa", a, 0);
+		run_command("sa", a, 0, 0);
 	return (0);
 }
 
@@ -47,7 +47,7 @@ static void		pb_forward(t_stack **a, t_stack **b, t_info **info,\
 	while (ptr && ptr->value < middle_val && !(is_slice((*a))) &&\
 	!try_sa(a, b, info))
 	{
-		run_command("pb", a, b);
+		run_command("pb", a, b, 0);
 		if (!push_in_vector(&(*info)->cmd_c, PB, sizeof(char)))
 			clean_and_exit(a, b, info, 'm');
 		ptr = (*a);
@@ -70,10 +70,10 @@ static void		pb_back(t_stack **a, t_stack **b, t_info **info,\
 	{
 		if (!push_in_vector(&(*info)->cmd_c, RRA, sizeof(char)))
 			clean_and_exit(a, b, info, 'm');
-		run_command("pb", a, b);
+		run_command("pb", a, b, 0);
 		if (!push_in_vector(&(*info)->cmd_c, PB, sizeof(char)))
 			clean_and_exit(a, b, info, 'm');
-		run_command("rra", a, b);
+		run_command("rra", a, b, 0);
 		ptr = (*a);
 	}
 }
@@ -91,7 +91,7 @@ static void		ra(t_stack **a, t_stack **b, t_info **info, int middle_val)
 	while (ptr && check_mid(*a, middle_val) && ptr->value >= middle_val\
 	&& !(is_slice((*a))) && !try_sa(a, b, info))
 	{
-		run_command("ra", a, b);
+		run_command("ra", a, b, 0);
 		if (!push_in_vector(&(*info)->cmd_c, RA, sizeof(char)))
 			clean_and_exit(a, b, info, 'm');
 		ptr = (*a);
@@ -118,14 +118,14 @@ void			all_to_b_old(t_stack **a, t_stack **b, t_info **info)
 			ft_printf("###1 ");
 			print_a(a);
 			pb_forward(a, b, info, middle_val);
-			run_command("rra", a, b);
+			run_command("rra", a, b, (*info)->flag);
 			ft_printf("###2 ");
 			print_a(a);
 			try_sa(a, b, info);
 			ft_printf("###3 ");
 			print_a(a);
 			pb_back(a, b, info, middle_val);
-			run_command("ra", a, b);
+			run_command("ra", a, b, (*info)->flag);
 			ft_printf("###4 ");
 			print_a(a);
 			ra(a, b, info, middle_val);

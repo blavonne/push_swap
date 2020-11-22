@@ -21,13 +21,13 @@ void		do_rr(t_stack **a, t_stack **b, t_info **info)
 	{
 		if ((*info)->place.way_to_b == 't')
 		{
-			run_command("rr", a, b);
+			run_command("rr", a, b, (*info)->flag);
 			if (!push_in_vector(&(*info)->cmd_c, RR, sizeof(char)))
 				clean_and_exit(a, b, info, 'm');
 		}
 		else if ((*info)->place.way_to_b == 'b')
 		{
-			run_command("rrr", a, b);
+			run_command("rrr", a, b, (*info)->flag);
 			if (!push_in_vector(&(*info)->cmd_c, RRR, sizeof(char)))
 				clean_and_exit(a, b, info, 'm');
 		}
@@ -44,13 +44,13 @@ void		to_top_b(t_stack **a, t_stack **b, t_info **info)
 	{
 		if ((*info)->place.way_to_b == 't')
 		{
-			run_command("rb", 0, b);
+			run_command("rb", 0, b, (*info)->flag);
 			if (!push_in_vector(&(*info)->cmd_c, RB, sizeof(char)))
 				clean_and_exit(a, b, info, 'm');
 		}
 		else
 		{
-			run_command("rrb", 0, b);
+			run_command("rrb", 0, b, (*info)->flag);
 			if (!push_in_vector(&(*info)->cmd_c, RRB, sizeof(char)))
 				clean_and_exit(a, b, info, 'm');
 		}
@@ -67,13 +67,13 @@ void		to_a(t_stack **a, t_stack **b, t_info **info)
 	{
 		if ((*info)->place.way_to_a == 't')
 		{
-			run_command("ra", a, 0);
+			run_command("ra", a, 0, (*info)->flag);
 			if (!push_in_vector(&(*info)->cmd_c, RA, sizeof(char)))
 				clean_and_exit(a, b, info, 'm');
 		}
 		else
 		{
-			run_command("rra", a, 0);
+			run_command("rra", a, 0, (*info)->flag);
 			if (!push_in_vector(&(*info)->cmd_c, RRA, sizeof(char)))
 				clean_and_exit(a, b, info, 'm');
 		}
@@ -81,7 +81,7 @@ void		to_a(t_stack **a, t_stack **b, t_info **info)
 	}
 	if ((*b))
 	{
-		run_command("pa", a, b);
+		run_command("pa", a, b, (*info)->flag);
 		if (!push_in_vector(&(*info)->cmd_c, PA, sizeof(char)))
 			clean_and_exit(a, b, info, 'm');
 	}

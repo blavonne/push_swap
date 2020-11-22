@@ -84,7 +84,7 @@ void				check_duplicates(t_stack **stack)
 	}
 }
 
-t_stack				*read_argv(int argc, char **argv)
+t_stack				*read_argv(int argc, char **argv, int *flag)
 {
 	int		i;
 	t_stack	*stack;
@@ -95,6 +95,8 @@ t_stack				*read_argv(int argc, char **argv)
 	{
 		if (ft_isnumber(argv[i]))
 			push_in_stack(&stack, get_number(argv[i], &stack));
+		else if (!(*flag) && is_flag(argv[i]))
+			*flag = 1;
 		else
 			try_to_split(argv[i], &stack);
 		i++;

@@ -18,10 +18,12 @@ int		main(int argc, char **argv)
 	t_stack *b;
 	char	*cmd;
 	int		count;
+	t_info	info;
 
 	if (argc == 1)
 		return (0);
-	a = read_argv(argc, argv);
+	info.flag = 0;
+	a = read_argv(argc, argv, &info.flag);
 	b = NULL;
 	while ((count = get_next_line(0, &cmd)))
 	{
@@ -29,7 +31,7 @@ int		main(int argc, char **argv)
 			break ;
 		if (!check_command(cmd))
 			clean_and_exit(&a, &b, 0, 'c');
-		run_command(cmd, &a, &b);
+		run_command(cmd, &a, &b, info.flag);
 		free(cmd);
 	}
 	free(cmd);

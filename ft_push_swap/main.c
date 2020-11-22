@@ -44,15 +44,16 @@ int		main(int argc, char **argv)
 
 	if (argc == 1)
 		return (0);
-	a = read_argv(argc, argv);
+	if (!(info = create_main_struct()))
+		clean_and_exit(&a, &b, &info, 'm');
+	a = read_argv(argc, argv, &info->flag);
 	b = NULL;
 	if (check_asc_order(a, b))
 	{
 		clean_and_exit(&a, &b, 0, 0);
-		return (69);
+		return (0);
 	}
-	if (!(info = get_commands(&a, &b)))
-		clean_and_exit(&a, &b, &info, 'm');
+	get_commands(&a, &b, &info);
 	print_info(info);
 	clean_and_exit(&a, &b, &info, 0);
 	return (0);

@@ -249,10 +249,7 @@ echo -e "\n\t\t\t 🤹🏻‍♀️  RANDOM VALUES TEST 🤹🏻‍♀️ \n"
 for ((i = 0; i < $count; i++))
 do
 ARG=`ruby -e "puts ($from..$to).to_a.shuffle.join(' ')"` ; res=$(./push_swap $ARG | wc -l)
-	if [ "$to" -eq 5 ]
-	then
 	echo ${ARG}
-	fi
 if [ $dif -eq 100 ]
 then
 if [ $res -gt 1500 ]

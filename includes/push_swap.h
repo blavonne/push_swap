@@ -59,6 +59,7 @@ typedef struct		s_info
 	size_t			arr_size;
 	size_t			arr_next;
 	t_place			place;
+	int				flag;
 }					t_info;
 
 typedef struct		s_stack
@@ -82,7 +83,9 @@ typedef struct		s_bigint
 	int				sign;
 }					t_bigint;
 
-t_stack				*read_argv(int argc, char **argv);
+t_stack				*read_argv(int argc, char **argv, int *flag);
+int					is_flag(char *str);
+void				print_status(t_stack **a, t_stack **b, char *command);
 t_bigint			initialize_big(t_bigint *elephant);
 int					set_len_big(t_bigint *elephant);
 t_stack				*create_stack(void);
@@ -91,7 +94,8 @@ int					push_in_stack(t_stack **stack, int value);
 int					get_number(char *str, t_stack **stack);
 int					try_to_split(char *str, t_stack **stack);
 
-void				run_command(char *command, t_stack **a, t_stack **b);
+void				run_command(char *command, t_stack **a, t_stack **b,\
+					int flag);
 int					check_command(char *cmd);
 
 int					check_asc_order(t_stack *a, t_stack *b);
@@ -114,7 +118,7 @@ void				destroy_varr(t_info **m);
 void				all_to_b(t_stack **a, t_stack **b, t_info **info);
 int					check_mid(t_stack *a, int middle);
 int					get_middle(t_stack **a, t_stack **b, t_info **info);
-t_info				*get_commands(t_stack **a, t_stack **b);
+void				get_commands(t_stack **a, t_stack **b, t_info **info);
 int					*timsort(int *arr, int size);
 t_map				*set_map(t_map *map, int i);
 int					*merge(int *arr, t_map **map);
