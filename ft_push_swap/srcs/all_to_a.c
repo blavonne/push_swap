@@ -98,13 +98,13 @@ int			all_to_a(t_stack **a, t_stack **b, t_info **info)
 	{
 		steps_b(b, &cur, ptr->value);
 		steps_a(a, &cur, ptr->value);
-		set_rr(&cur);
+//		set_rr(&cur);
 		if (!(*info)->place.way_to_a || (cur.steps_to_a + cur.steps_to_b <\
 		(*info)->place.steps_to_b + (*info)->place.steps_to_a))
 			(*info)->place = cur;
 		ptr = ptr->next;
 	}
-	do_rr(a, b, info);
+//	do_rr(a, b, info);
 	to_top_b(a, b, info);
 	to_a(a, b, info);
 	ft_bzero(&(*info)->place, sizeof(cur));

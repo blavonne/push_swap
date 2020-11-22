@@ -43,7 +43,6 @@ void			do_ra(t_stack **a, t_stack **b, t_info **info, int i)
 {
 	while (i--)
 	{
-		print_a(a);
 		run_command("ra", a, 0, (*info)->flag);
 		if (!push_in_vector(&(*info)->cmd_c, RA, sizeof(char)))
 			clean_and_exit(a, b, info, 'm');
@@ -54,7 +53,6 @@ void			do_rra(t_stack **a, t_stack **b, t_info **info, int i)
 {
 	while (i--)
 	{
-		ft_printf("qwe\n");
 		run_command("rra", a, 0, (*info)->flag);
 		if (!push_in_vector(&(*info)->cmd_c, RRA, sizeof(char)))
 			clean_and_exit(a, b, info, 'm');
@@ -82,12 +80,14 @@ void			do_rotate(t_stack **a, t_stack **b, t_info **info, int middle)
 		if (!bottom && ptr->value < middle)
 			bottom = len;
 		len++;
-		ft_printf("top %i bottom %i len %i\n", top, bottom, len);
+//		ft_printf("top %i bottom %i len %i\n", top, bottom, len);
 		ptr = ptr->next;
 	}
-	if (top && bottom && top <= bottom)
+	if (!top && bottom == -1)
+		return ;
+	else if (top && bottom && top <= bottom)
 		do_ra(a, b, info, top);
-	if (top && bottom && top > bottom)
+	else if (top && bottom && top > bottom)
 		do_rra(a, b, info, bottom);
 }
 

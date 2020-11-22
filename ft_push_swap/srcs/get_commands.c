@@ -73,7 +73,7 @@ void		get_commands(t_stack **a, t_stack **b, t_info **info)
 	all_to_b(a, b, info);
 //	print_info(info);
 	all_to_a(a, b, info);
-	print_info(*info);
+//	print_info(*info);
 	if (check_asc_order((*a), 0))
 		return ;
 	if (!(is_slice(*a)))

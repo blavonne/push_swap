@@ -115,21 +115,21 @@ void			all_to_b_old(t_stack **a, t_stack **b, t_info **info)
 		while (check_mid((*a), middle_val) && !(is_slice((*a))))
 		{
 			try_sa(a, b, info);
-			ft_printf("###1 ");
+			//ft_printf("###1 ");
 			print_a(a);
 			pb_forward(a, b, info, middle_val);
 			run_command("rra", a, b, (*info)->flag);
-			ft_printf("###2 ");
+			//ft_printf("###2 ");
 			print_a(a);
 			try_sa(a, b, info);
-			ft_printf("###3 ");
+			//ft_printf("###3 ");
 			print_a(a);
 			pb_back(a, b, info, middle_val);
 			run_command("ra", a, b, (*info)->flag);
-			ft_printf("###4 ");
+			//ft_printf("###4 ");
 			print_a(a);
 			ra(a, b, info, middle_val);
-			ft_printf("###5 ");
+			//ft_printf("###5 ");
 			print_a(a);
 		}
 	}
