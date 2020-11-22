@@ -99,7 +99,6 @@ int					is_slice(t_stack *a);
 
 t_info				*create_main_struct(void);
 t_vector			*create_vector(void);
-t_vector			*copy_vector(t_vector *src);
 int					push_in_vector(t_vector **v, int value, size_t size);
 t_vector			**create_varr(void);
 int					push_in_varr(t_info **m, t_vector *tmp);
@@ -120,13 +119,8 @@ int					*timsort(int *arr, int size);
 t_map				*set_map(t_map *map, int i);
 int					*merge(int *arr, t_map **map);
 int					*insertion_sort(int *arr, t_map *map);
-void				all_to_a(t_stack **a, t_stack **b, t_info **m);
-int					all_to_a2(t_stack **a, t_stack **b, t_info **info);
-t_vector			*ptr_to_top_b(t_stack *b, t_stack *ptr);
-int					ptr_to_a(t_stack *a, t_stack *ptr, t_vector **way);
-int					set_steps(t_stack *a, t_stack *b, t_stack *ptr, t_info **info);
+int					all_to_a(t_stack **a, t_stack **b, t_info **info);
 int					cat_vectors(t_vector **dest, t_vector *src);
-void				optimize_way(t_vector *way);
 
 void				print_info(t_info *info);
 void		steps_b(t_stack **b, t_place *cur, int value);

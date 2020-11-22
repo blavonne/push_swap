@@ -38,10 +38,6 @@ PS_SRC = $(PS_SRCS)all_to_b.c\
 	$(PS_SRCS)insertion_sort.c\
 	$(PS_SRCS)main_struct.c\
 	$(PS_SRCS)middle_handler.c\
-	$(PS_SRCS)optimize_way.c\
-	$(PS_SRCS)ptr_to_a.c\
-	$(PS_SRCS)ptr_to_top_b.c\
-	$(PS_SRCS)set_steps.c\
 	$(PS_SRCS)timsort.c\
 	$(PS_SRCS)timsort_merge.c\
 	$(PS_SRCS)vector.c\

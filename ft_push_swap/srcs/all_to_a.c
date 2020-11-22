@@ -12,91 +12,103 @@
 
 #include "push_swap.h"
 
-static int		find_min_index(t_vector *count_steps_i)
+void		do_rr(t_stack **a, t_stack **b, t_info **info)
 {
-	int		*arr;
-	size_t	i;
-	int		min;
-
-	arr = count_steps_i->arr;
-	min = -1;
-	if (arr)
-		min = 0;
-	i = 0;
-	while (arr && i < count_steps_i->next)
-	{
-		if (arr[i] < arr[min])
-			min = i;
-		i++;
-	}
-	return (min);
-}
-
-static int		merge_commands(t_stack **a, t_stack **b, t_info **m,\
-		int count)
-{
-	size_t			i;
-	unsigned char	*arr;
+	int		i;
 
 	i = 0;
-	if (!(*m)->arr_size || (*m)->cmd_arr == NULL ||\
-	(*m)->cmd_arr[count] == NULL)
-		return (0);
-	arr = (*m)->cmd_arr[count]->arr;
-	while (i < (*m)->cmd_arr[count]->next)
+	while (i < (*info)->place.rr)
 	{
-		if (!(push_in_vector(&(*m)->cmd_c, arr[i], sizeof(char))))
-			return (0);
-		arr[i] == RA ? run_command("ra", a, b) : 0;
-		arr[i] == RB ? run_command("rb", a, b) : 0;
-		arr[i] == RR ? run_command("rr", a, b) : 0;
-		arr[i] == SA ? run_command("sa", a, b) : 0;
-		arr[i] == SB ? run_command("sb", a, b) : 0;
-		arr[i] == PA ? run_command("pa", a, b) : 0;
-		arr[i] == PB ? run_command("pb", a, b) : 0;
-		arr[i] == RRA ? run_command("rra", a, b) : 0;
-		arr[i] == RRB ? run_command("rrb", a, b) : 0;
-		arr[i] == RRR ? run_command("rrr", a, b) : 0;
-		i++;
-	}
-	return (1);
-}
-
-int				reset_cmd_arr(t_info **m)
-{
-	destroy_vector(&(*m)->count_steps_i);
-	destroy_varr(m);
-	if (!((*m)->count_steps_i = create_vector()))
-		return (0);
-	(*m)->arr_size = 1;
-	(*m)->arr_next = 0;
-	return (1);
-}
-
-void			all_to_a(t_stack **a, t_stack **b, t_info **m)
-{
-	t_stack	*ptr;
-	int		shortest_way_index;
-
-	if (*b)
-	{
-		(*m)->cmd_arr = create_varr();
-		ptr = (*b);
-		while (ptr)
+		if ((*info)->place.way_to_b == 't')
 		{
-			if (!set_steps((*a), (*b), ptr, m))
-				clean_and_exit(a, b, m, 'm');
-			ptr = ptr->next;
+			run_command("rr", a, b);
+			if (!push_in_vector(&(*info)->cmd_c, RR, sizeof(char)))
+				clean_and_exit(a, b, info, 'm');
 		}
-		shortest_way_index = find_min_index((*m)->count_steps_i);
-		if (shortest_way_index < 0)
-			clean_and_exit(a, b, m, 'm');
-		if (!merge_commands(a, b, m, shortest_way_index))
-			clean_and_exit(a, b, m, 'm');
-		reset_cmd_arr(m);
-		if ((*b) == NULL)
-			return ;
-		else
-			all_to_a(a, b, m);
+		else if ((*info)->place.way_to_b == 'b')
+		{
+			run_command("rrr", a, b);
+			if (!push_in_vector(&(*info)->cmd_c, RRR, sizeof(char)))
+				clean_and_exit(a, b, info, 'm');
+		}
+		i++;
 	}
+}
+
+void		to_top_b(t_stack **a, t_stack **b, t_info **info)
+{
+	int		i;
+
+	i = 0;
+	while (i < (*info)->place.steps_to_b)
+	{
+		if ((*info)->place.way_to_b == 't')
+		{
+			run_command("rb", 0, b);
+			if (!push_in_vector(&(*info)->cmd_c, RB, sizeof(char)))
+				clean_and_exit(a, b, info, 'm');
+		}
+		else
+		{
+			run_command("rrb", 0, b);
+			if (!push_in_vector(&(*info)->cmd_c, RRB, sizeof(char)))
+				clean_and_exit(a, b, info, 'm');
+		}
+		i++;
+	}
+}
+
+void		to_a(t_stack **a, t_stack **b, t_info **info)
+{
+	int		i;
+
+	i = 0;
+	while (i < (*info)->place.steps_to_a)
+	{
+		if ((*info)->place.way_to_a == 't')
+		{
+			run_command("ra", a, 0);
+			if (!push_in_vector(&(*info)->cmd_c, RA, sizeof(char)))
+				clean_and_exit(a, b, info, 'm');
+		}
+		else
+		{
+			run_command("rra", a, 0);
+			if (!push_in_vector(&(*info)->cmd_c, RRA, sizeof(char)))
+				clean_and_exit(a, b, info, 'm');
+		}
+		i++;
+	}
+	if ((*b))
+	{
+		run_command("pa", a, b);
+		if (!push_in_vector(&(*info)->cmd_c, PA, sizeof(char)))
+			clean_and_exit(a, b, info, 'm');
+	}
+}
+
+int			all_to_a(t_stack **a, t_stack **b, t_info **info)
+{
+	t_place	cur;
+	t_stack	*ptr;
+
+	ptr = (*b);
+	ft_bzero(&cur, sizeof(cur));
+	while (ptr)
+	{
+		steps_b(b, &cur, ptr->value);
+		steps_a(a, &cur, ptr->value);
+		set_rr(&cur);
+		if (!(*info)->place.way_to_a || (cur.steps_to_a + cur.steps_to_b <\
+		(*info)->place.steps_to_b + (*info)->place.steps_to_a))
+			(*info)->place = cur;
+		ptr = ptr->next;
+	}
+	do_rr(a, b, info);
+	to_top_b(a, b, info);
+	to_a(a, b, info);
+	ft_bzero(&(*info)->place, sizeof(cur));
+	if ((*b))
+		all_to_a(a, b, info);
+	return (1);
 }
