@@ -104,10 +104,10 @@ void			all_to_b(t_stack **a, t_stack **b, t_info **info)
 			try_sa(a, b, info);
 //			ft_printf("to_b_rb\n");
 			to_b_rb(a, b, info, middle_val);
-			try_sa(a, b, info);
+//			try_sa(a, b, info);
 //			ft_printf("to_b_rrb\n");
 			to_b_rrb(a, b, info, middle_val);
-			try_sa(a, b, info);
+//			try_sa(a, b, info);
 //			ft_printf("do_rotate\n");
 			do_rotate(a, b, info, middle_val);
 		}
