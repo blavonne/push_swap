@@ -12,11 +12,21 @@
 
 #include "push_swap.h"
 
-static int			debug_flag(char *str)
+static int			is_flag(char *str)
 {
-	if (ft_strequ(str, "-v"))
+	if (ft_strlen(str) == 2 && str[0] == '-' && ft_isalpha(str[1]))
 		return (1);
 	return (0);
+}
+
+static void			add_flag(char *str, int *flag)
+{
+	if (ft_strequ(str, "-v"))
+		(*flag) |= DEBUG;
+	else if (ft_strequ(str, "-r"))
+		(*flag) |= TO_FILE;
+	else if (ft_strequ(str, "-w"))
+		(*flag) |= FROM_FILE;
 }
 
 int					get_number(char *str, long long *number)
@@ -83,8 +93,8 @@ t_stack				*read_argv(int argc, char **argv, int *flag)
 				return (NULL);
 			push_in_stack(&stack, (int)number);
 		}
-		else if (!(*flag) && debug_flag(argv[i]))
-			*flag = 1;
+		else if (is_flag(argv[i]))
+			add_flag(argv[i], flag);
 		else if (!(try_to_split(argv[i], &stack)))
 				return (NULL);
 		i++;

@@ -20,6 +20,9 @@
 
 # define V_SIZE			200u
 # define VARR_SIZE		30u
+# define DEBUG			0b00000001u
+# define TO_FILE		0b00000010u
+# define FROM_FILE		0b00000100u
 
 # define RA		0b00000001u
 # define RB		0b00000010u

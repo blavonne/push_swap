@@ -23,7 +23,6 @@ int		main(int argc, char **argv)
 	if (argc == 1)
 		return (0);
 	info.flag = 0;
-	a = NULL;
 	b = NULL;
 	if ((a = read_argv(argc, argv, &info.flag)))
 	{
