@@ -51,17 +51,16 @@ void				read_argv(int argc, char **argv, t_info *info)
 		{
 			if (ft_strlen(argv[i]) > 11 || !get_number(argv[i], &number))
 				clean_and_exit(info, 'm');
-			push_in_stack(info->a, (int)number);
+			push_in_stack(&info->a, (int)number);
 		}
-		/*
 		else if (is_flag(argv[i]))
 			add_flag(argv[i], &info->flag);
+		/*
 		else if (is_file(argv[i]))
 			add_file(argv[i], info->flag);
 		 */
 		else if (!(try_to_split(argv[i], info)))
 			clean_and_exit(info, 'm');
 		i++;
-		print_status(info, "rty");
 	}
 }

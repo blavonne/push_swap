@@ -12,15 +12,15 @@
 
 #include "push_swap.h"
 
-/*
-static int			is_flag(char *str)
+
+int			is_flag(char *str)
 {
 	if (ft_strlen(str) == 2 && str[0] == '-' && ft_isalpha(str[1]))
 		return (1);
 	return (0);
 }
 
-static void			add_flag(char *str, int *flag)
+void			add_flag(char *str, int *flag)
 {
 	if (ft_strequ(str, "-v"))
 		(*flag) |= DEBUG;
@@ -29,7 +29,7 @@ static void			add_flag(char *str, int *flag)
 	else if (ft_strequ(str, "-w"))
 		(*flag) |= FROM_FILE;
 }
-*/
+
 /*
 int			flag_manager(int argc, char **argv, t_info *info)
 {

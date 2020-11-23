@@ -33,18 +33,10 @@ int		main(int argc, char **argv)
 
 	if (argc == 1)
 		return (0);
-	ft_printf("qwe\n");
 	info_init(&info);
-	info.flag = 1; //re
-	ft_printf("qwe\n");
-	print_status(&info, "qwe");
 	read_argv(argc, argv, &info);
-	print_status(&info, "qwe");
-	ft_printf("qwe\n");
 	check_duplicates(&info);
-	print_status(&info, "qwe");
 	read_commands(&info);
-	ft_printf("qwe\n");
 	check_asc_order(info.a, info.b) ? ft_printf("OK\n") : ft_printf("KO\n");
 	clean_and_exit(&info, 0);
 	return (0);

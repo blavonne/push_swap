@@ -17,7 +17,7 @@ void			do_ra(t_info *info, int i)
 	while (i--)
 	{
 		run_command("ra", info);
-		if (!push_in_vector(info->cmd_c, RA, sizeof(char)))
+		if (!push_in_vector(&info->cmd_c, RA, sizeof(char)))
 			clean_and_exit(info, 'm');
 	}
 }
@@ -27,7 +27,7 @@ void			do_rra(t_info *info, int i)
 	while (i--)
 	{
 		run_command("rra", info);
-		if (!push_in_vector(info->cmd_c, RRA, sizeof(char)))
+		if (!push_in_vector(&info->cmd_c, RRA, sizeof(char)))
 			clean_and_exit(info, 'm');
 	}
 }

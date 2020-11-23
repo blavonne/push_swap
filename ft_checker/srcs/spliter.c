@@ -30,7 +30,7 @@ static void	clean_split(char ***matrix)
 	}
 }
 
-int			check_split(char *res, t_stack *stack, long long int *number)
+int			check_split(char *res, t_stack **stack, long long int *number)
 {
 	if (ft_isnumber(res))
 	{
@@ -56,7 +56,7 @@ int			try_to_split(char *str, t_info *info)
 	i = 0;
 	while (res[i])
 	{
-		if (check_split(res[i], info->a, &number))
+		if (check_split(res[i], &info->a, &number))
 			i++;
 		else
 		{

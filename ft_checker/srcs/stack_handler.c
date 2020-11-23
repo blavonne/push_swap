@@ -38,20 +38,20 @@ t_stack		*copy_stack(t_stack *src)
 	return (copy_head);
 }
 
-int			push_in_stack(t_stack *stack, int value)
+int			push_in_stack(t_stack **stack, int value)
 {
 	t_stack	*ptr;
 
-	if (!stack)
+	if (!(*stack))
 	{
 		if (!(ptr = create_stack()))
 			clean_and_exit(0, 'm');
 		ptr->value = value;
-		stack = ptr;
+		(*stack) = ptr;
 	}
 	else
 	{
-		ptr = stack;
+		ptr = (*stack);
 		while (ptr->next)
 			ptr = ptr->next;
 		if (!(ptr->next = create_stack()))

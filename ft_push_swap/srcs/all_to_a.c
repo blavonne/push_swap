@@ -22,14 +22,14 @@ void		do_rr(t_info *info)
 		if ((info->place.way_to_b == 't' && info->place.way_to_a == 't'))
 		{
 			run_command("rr", info);
-			if (!push_in_vector(info->cmd_c, RR, sizeof(char)))
+			if (!push_in_vector(&info->cmd_c, RR, sizeof(char)))
 				clean_and_exit(info, 'm');
 		}
 		else if (info->place.way_to_b == 'b' &&\
 		info->place.way_to_a == 'b')
 		{
 			run_command("rrr", info);
-			if (!push_in_vector(info->cmd_c, RRR, sizeof(char)))
+			if (!push_in_vector(&info->cmd_c, RRR, sizeof(char)))
 				clean_and_exit(info, 'm');
 		}
 		i++;
@@ -46,13 +46,13 @@ void		to_top_b(t_info *info)
 		if (info->place.way_to_b == 't')
 		{
 			run_command("rb", info);
-			if (!push_in_vector(info->cmd_c, RB, sizeof(char)))
+			if (!push_in_vector(&info->cmd_c, RB, sizeof(char)))
 				clean_and_exit(info, 'm');
 		}
 		else
 		{
 			run_command("rrb", info);
-			if (!push_in_vector(info->cmd_c, RRB, sizeof(char)))
+			if (!push_in_vector(&info->cmd_c, RRB, sizeof(char)))
 				clean_and_exit(info, 'm');
 		}
 		i++;
@@ -69,13 +69,13 @@ void		to_a(t_info *info)
 		if (info->place.way_to_a == 't')
 		{
 			run_command("ra", info);
-			if (!push_in_vector(info->cmd_c, RA, sizeof(char)))
+			if (!push_in_vector(&info->cmd_c, RA, sizeof(char)))
 				clean_and_exit(info, 'm');
 		}
 		else
 		{
 			run_command("rra", info);
-			if (!push_in_vector(info->cmd_c, RRA, sizeof(char)))
+			if (!push_in_vector(&info->cmd_c, RRA, sizeof(char)))
 				clean_and_exit(info, 'm');
 		}
 		i++;
@@ -83,7 +83,7 @@ void		to_a(t_info *info)
 	if (info->b)
 	{
 		run_command("pa", info);
-		if (!push_in_vector(info->cmd_c, PA, sizeof(char)))
+		if (!push_in_vector(&info->cmd_c, PA, sizeof(char)))
 			clean_and_exit(info, 'm');
 	}
 }

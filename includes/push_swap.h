@@ -81,9 +81,11 @@ typedef struct		s_map
 
 void				info_init(t_info *info);
 void				read_argv(int argc, char **argv, t_info *info);
+int					is_flag(char *str);
+void				add_flag(char *str, int *flag);
 t_stack				*create_stack(void);
 int					get_number(char *str, long long int *number);
-int					push_in_stack(t_stack *stack, int value);
+int					push_in_stack(t_stack **stack, int value);
 int					try_to_split(char *str, t_info *info);
 
 void				run_command(char *command, t_info *info);
@@ -91,11 +93,10 @@ int					check_command(char *cmd);
 void				check_duplicates(t_info *info);
 
 t_vector			*create_vector(void);
-int					push_in_vector(t_vector *v, int value, size_t size);
+int					push_in_vector(t_vector **v, int value, size_t size);
 
 void				clean_and_exit(t_info *info, char option);
 void				destroy_map(t_map **map);
-void				destroy_main(t_info **m);
 void				destroy_vector(t_vector **v);
 void				destroy_stack(t_stack **stack);
 
@@ -121,7 +122,7 @@ void				print_info(t_info *info);
 void				print_status(t_info *info, char *command);
 
 t_stack				*copy_stack(t_stack *src);
-int					cat_vectors(t_vector *dest, t_vector *src);
+int					cat_vectors(t_vector **dest, t_vector *src);
 t_vector			**create_varr(void);
 int					push_in_varr(t_info **m, t_vector *tmp);
 

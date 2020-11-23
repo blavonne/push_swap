@@ -25,7 +25,7 @@ int				try_sa(t_info *info)
 		run_command("sa", info);
 		if (is_slice(info->a))
 		{
-			if (!push_in_vector((info)->cmd_c, SA, sizeof(char)))
+			if (!push_in_vector(&(info)->cmd_c, SA, sizeof(char)))
 				clean_and_exit(info, 'm');
 			return (1);
 		}
@@ -45,10 +45,10 @@ void			to_b_rrb(t_info *info, int middle)
 		value = info->a->value;
 		if (value < middle)
 		{
-			if (!push_in_vector(info->cmd_c, RRA, sizeof(char)))
+			if (!push_in_vector(&info->cmd_c, RRA, sizeof(char)))
 				clean_and_exit(info, 'm');
 			run_command("pb", info);
-			if (!push_in_vector(info->cmd_c, PB, sizeof(char)))
+			if (!push_in_vector(&info->cmd_c, PB, sizeof(char)))
 				clean_and_exit(info, 'm');
 		}
 		else
@@ -66,7 +66,7 @@ void			to_b_rb(t_info *info, int middle)
 		if (info->a->value < middle)
 		{
 			run_command("pb", info);
-			if (!push_in_vector(info->cmd_c, PB, sizeof(char)))
+			if (!push_in_vector(&info->cmd_c, PB, sizeof(char)))
 				clean_and_exit(info, 'm');
 		}
 		else

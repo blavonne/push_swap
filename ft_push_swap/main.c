@@ -22,9 +22,8 @@ int		main(int argc, char **argv)
 	read_argv(argc, argv, &info);
 	check_duplicates(&info);
 	get_commands(&info);
-	if (check_asc_order(info.a, info.b)) //интересно, если убрать
-		clean_and_exit(&info, 'd');
 	if (!info.flag)
 		print_info(&info);
+	clean_and_exit(&info, 0);
 	return (0);
 }

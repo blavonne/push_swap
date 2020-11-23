@@ -17,7 +17,7 @@ static void	rotate_rra(t_info *info, int steps)
 	while (steps--)
 	{
 		run_command("rra", info);
-		if (!push_in_vector(info->cmd_c, RRA, sizeof(char)))
+		if (!push_in_vector(&info->cmd_c, RRA, sizeof(char)))
 			clean_and_exit(info, 'm');
 	}
 }
@@ -27,7 +27,7 @@ static void	rotate_ra(t_info *info, int steps)
 	while (steps--)
 	{
 		run_command("ra", info);
-		if (!push_in_vector(info->cmd_c, RA, sizeof(char)))
+		if (!push_in_vector(&info->cmd_c, RA, sizeof(char)))
 			clean_and_exit(info, 'm');
 	}
 }

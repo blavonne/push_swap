@@ -91,7 +91,7 @@ void			run_command(char *command, t_info *info)
 	}
 	ft_strequ("pa", command) ? run_p(&info->a, &info->b) : 0;
 	ft_strequ("pb", command) ? run_p(&info->b, &info->a) : 0;
-	ft_strequ("ra", command) ? run_r(&info->b) : 0;
+	ft_strequ("ra", command) ? run_r(&info->a) : 0;
 	ft_strequ("rb", command) ? run_r(&info->b) : 0;
 	if (ft_strequ("rr", command))
 	{

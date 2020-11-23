@@ -15,7 +15,8 @@
 void		get_commands(t_info *info)
 {
 	all_to_b(info);
-	all_to_a(info);
+	if (info->b)
+		all_to_a(info);
 	if (check_asc_order(info->a, 0))
 		return ;
 	if (!(is_slice(info->a)))
