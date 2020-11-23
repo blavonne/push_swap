@@ -20,15 +20,18 @@
 
 int				try_sa(t_stack **a, t_stack **b, t_info **info)
 {
-	run_command("sa", a, b, (*info)->flag);
-	if (is_slice(*a))
+	if ((*a) && (*a)->next && (*a)->next->next)
 	{
-		if (!push_in_vector(&(*info)->cmd_c, SA, sizeof(char)))
-			clean_and_exit(a, b, info, 'm');
-		return (1);
-	}
-	else
 		run_command("sa", a, b, (*info)->flag);
+		if (is_slice(*a))
+		{
+			if (!push_in_vector(&(*info)->cmd_c, SA, sizeof(char)))
+				clean_and_exit(a, b, info, 'm');
+			return (1);
+		}
+		else
+			run_command("sa", a, b, (*info)->flag);
+	}
 	return (0);
 }
 
