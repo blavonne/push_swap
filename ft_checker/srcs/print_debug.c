@@ -40,15 +40,15 @@ static void		print_both(t_stack *ptr_a, t_stack *ptr_b)
 	}
 }
 
-void		print_status(t_stack **a, t_stack **b, char *command, int flag)
+void		print_status(t_info *info, char *command)
 {
 	t_stack	*ptr_a;
 	t_stack	*ptr_b;
 
-	if (flag)
+	if (info->flag)
 	{
-		ptr_a = a ? (*a) : 0;
-		ptr_b = b ? (*b) : 0;
+		ptr_a = info->a;
+		ptr_b = info->b;
 		ft_printf("=========================\n");
 		if (ft_strlen(command) == 2)
 			ft_printf("|    Run command %s     |\n", command);
@@ -56,9 +56,9 @@ void		print_status(t_stack **a, t_stack **b, char *command, int flag)
 			ft_printf("|    Run command %s    |\n", command);
 		ft_printf("=========================\n");
 		ft_printf("%11s  %-11s\n", "A", "B");
-		if (flag == 2)
+		if (info->flag == 2) //вроде не использовала
 			print_one(ptr_a, ptr_b);
-		else if (flag == 1)
+		else if (info->flag == 1)
 			print_both(ptr_a, ptr_b);
 		ft_printf("\n");
 	}

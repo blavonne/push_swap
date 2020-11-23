@@ -18,78 +18,81 @@
 ** then it returns 1 otherwise it rolls back sa and returns 0
 */
 
-int				try_sa(t_stack **a, t_stack **b, t_info **info)
+int				try_sa(t_info *info)
 {
-	if ((*a) && (*a)->next && (*a)->next->next)
+	if (info->a && info->a->next && info->a->next->next)
 	{
-		run_command("sa", a, b, (*info)->flag);
-		if (is_slice(*a))
+		run_command("sa", info);
+		if (is_slice(info->a))
 		{
-			if (!push_in_vector(&(*info)->cmd_c, SA, sizeof(char)))
-				clean_and_exit(a, b, info, 'm');
+			if (!push_in_vector((info)->cmd_c, SA, sizeof(char)))
+				clean_and_exit(info, 'm');
 			return (1);
 		}
 		else
-			run_command("sa", a, b, (*info)->flag);
+			run_command("sa", info);
 	}
 	return (0);
 }
 
-void			to_b_rrb(t_stack **a, t_stack **b, t_info **info, int middle)
+void			to_b_rrb(t_info *info, int middle)
 {
 	int		value;
 
-	while ((*a) && !is_slice((*a)))
+	while (info->a && !is_slice((info->a)))
 	{
-		run_command("rra", a, b, (*info)->flag);
-		value = (*a)->value;
+		run_command("rra", info);
+		value = info->a->value;
 		if (value < middle)
 		{
-			if (!push_in_vector(&(*info)->cmd_c, RRA, sizeof(char)))
-				clean_and_exit(a, b, info, 'm');
-			run_command("pb", a, b, (*info)->flag);
-			if (!push_in_vector(&(*info)->cmd_c, PB, sizeof(char)))
-				clean_and_exit(a, b, info, 'm');
+			if (!push_in_vector(info->cmd_c, RRA, sizeof(char)))
+				clean_and_exit(info, 'm');
+			run_command("pb", info);
+			if (!push_in_vector(info->cmd_c, PB, sizeof(char)))
+				clean_and_exit(info, 'm');
 		}
 		else
 		{
-			run_command("ra", a, b, (*info)->flag);
+			run_command("ra", info);
 			break ;
 		}
 	}
 }
 
-void			to_b_rb(t_stack **a, t_stack **b, t_info **info, int middle)
+void			to_b_rb(t_info *info, int middle)
 {
-	while ((*a) && !is_slice((*a)))
+	while (info->a && !is_slice((info->a)))
 	{
-		if ((*a)->value < middle)
+		if (info->a->value < middle)
 		{
-			run_command("pb", a, b, (*info)->flag);
-			if (!push_in_vector(&(*info)->cmd_c, PB, sizeof(char)))
-				clean_and_exit(a, b, info, 'm');
+			run_command("pb", info);
+			if (!push_in_vector(info->cmd_c, PB, sizeof(char)))
+				clean_and_exit(info, 'm');
 		}
 		else
 			break ;
 	}
 }
 
-void			all_to_b(t_stack **a, t_stack **b, t_info **info)
+void			all_to_b(t_info *info)
 {
 	int				middle_val;
 
-	while ((*a) && (*a)->next && (*a)->next->next && !(is_slice((*a))))
+	if (info->a && info->a->next && info->a->next->next) //было в цикле
 	{
-		middle_val = get_middle(a, b, info);
-		try_sa(a, b, info);
-		while (check_mid((*a), middle_val) && !(is_slice((*a))))
+		while (!(is_slice(info->a)))
 		{
-			try_sa(a, b, info);
-			to_b_rb(a, b, info, middle_val);
-			try_sa(a, b, info);
-			to_b_rrb(a, b, info, middle_val);
-			try_sa(a, b, info);
-			do_rotate(a, b, info, middle_val);
+			middle_val = get_middle(info);
+			try_sa(info);
+			while (check_mid(info->a, middle_val) && !(is_slice((info->a))))
+			{
+				try_sa(info);
+				to_b_rb(info, middle_val);
+				try_sa(info);
+				to_b_rrb(info, middle_val);
+				try_sa(info);
+				do_rotate(info, middle_val);
+			}
 		}
 	}
 }

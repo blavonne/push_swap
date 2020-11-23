@@ -21,7 +21,7 @@ static void	reset_a_way(t_place *cur, int len)
 	}
 }
 
-void		steps_a(t_stack **a, t_place *cur, int value)
+void		steps_a(t_stack *a, t_place *cur, int value)
 {
 	t_stack	*ptr;
 	int		min;
@@ -30,7 +30,7 @@ void		steps_a(t_stack **a, t_place *cur, int value)
 
 	set = 0;
 	len = 0;
-	ptr = (*a);
+	ptr = a;
 	cur->way_to_a = 't';
 	while (ptr)
 	{

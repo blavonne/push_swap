@@ -22,9 +22,12 @@ C_SRC = $(C_SRCS)commander.c\
 	$(C_SRCS)reader.c\
 	$(C_SRCS)stack_handler.c\
 	$(C_SRCS)checker.c\
+	$(C_SRCS)flag_manager.c\
 	$(PS_SRCS)cleaner.c\
 	$(PS_SRCS)check_order.c\
 	$(C_SRCS)spliter.c\
+	$(C_SRCS)info_init.c\
+	$(PS_SRCS)vector.c\
 	$(C_ROOT)main.c\
 
 PS_SRC = $(PS_SRCS)all_to_b.c\
@@ -39,7 +42,6 @@ PS_SRC = $(PS_SRCS)all_to_b.c\
 	$(PS_SRCS)is_slice.c\
 	$(PS_SRCS)get_commands.c\
 	$(PS_SRCS)insertion_sort.c\
-	$(PS_SRCS)main_struct.c\
 	$(PS_SRCS)middle_handler.c\
 	$(PS_SRCS)print_info.c\
 	$(PS_SRCS)timsort.c\
@@ -50,7 +52,9 @@ PS_SRC = $(PS_SRCS)all_to_b.c\
 	$(C_SRCS)commander.c\
 	$(C_SRCS)spliter.c\
 	$(C_SRCS)checker.c\
+	$(C_SRCS)flag_manager.c\
 	$(C_SRCS)print_debug.c\
+	$(C_SRCS)info_init.c\
 	$(PS_ROOT)main.c\
 
 C_OBJ = $(C_SRC:%.c=%.o)

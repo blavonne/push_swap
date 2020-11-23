@@ -80,30 +80,30 @@ static void		run_rr(t_stack **stack)
 	}
 }
 
-void			run_command(char *command, t_stack **a, t_stack **b, int flag)
+void			run_command(char *command, t_info *info)
 {
-	ft_strequ("sa", command) ? run_s(a) : 0;
-	ft_strequ("sb", command) ? run_s(b) : 0;
+	ft_strequ("sa", command) ? run_s(&info->a) : 0;
+	ft_strequ("sb", command) ? run_s(&info->b) : 0;
 	if (ft_strequ("ss", command))
 	{
-		run_s(a);
-		run_s(b);
+		run_s(&info->a);
+		run_s(&info->b);
 	}
-	ft_strequ("pa", command) ? run_p(a, b) : 0;
-	ft_strequ("pb", command) ? run_p(b, a) : 0;
-	ft_strequ("ra", command) ? run_r(a) : 0;
-	ft_strequ("rb", command) ? run_r(b) : 0;
+	ft_strequ("pa", command) ? run_p(&info->a, &info->b) : 0;
+	ft_strequ("pb", command) ? run_p(&info->b, &info->a) : 0;
+	ft_strequ("ra", command) ? run_r(&info->b) : 0;
+	ft_strequ("rb", command) ? run_r(&info->b) : 0;
 	if (ft_strequ("rr", command))
 	{
-		run_r(a);
-		run_r(b);
+		run_r(&info->a);
+		run_r(&info->b);
 	}
-	ft_strequ("rra", command) ? run_rr(a) : 0;
-	ft_strequ("rrb", command) ? run_rr(b) : 0;
+	ft_strequ("rra", command) ? run_rr(&info->a) : 0;
+	ft_strequ("rrb", command) ? run_rr(&info->b) : 0;
 	if (ft_strequ("rrr", command))
 	{
-		run_rr(a);
-		run_rr(b);
+		run_rr(&info->a);
+		run_rr(&info->b);
 	}
-	print_status(a, b, command, flag);
+	print_status(info, command);
 }

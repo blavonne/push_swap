@@ -12,13 +12,13 @@
 
 #include "push_swap.h"
 
-void		get_commands(t_stack **a, t_stack **b, t_info **info)
+void		get_commands(t_info *info)
 {
-	all_to_b(a, b, info);
-	all_to_a(a, b, info);
-	if (check_asc_order((*a), 0))
+	all_to_b(info);
+	all_to_a(info);
+	if (check_asc_order(info->a, 0))
 		return ;
-	if (!(is_slice(*a)))
-		clean_and_exit(a, b, 0, 'm');
-	sort_slice(a, b, info);
+	if (!(is_slice(info->a)))
+		clean_and_exit(info, 'm');
+	sort_slice(info);
 }

@@ -12,23 +12,6 @@
 
 #include "push_swap.h"
 
-int		check_point(t_stack *a, t_stack *point, char order)
-{
-	t_stack	*ptr;
-	int		i;
-
-	ptr = point;
-	if (order == 'a')
-		i = (check_asc_order(point, 0)) ? 1 : 0;
-	while (ptr && ptr->next)
-		ptr = ptr->next;
-	if ((i == 1 && ptr && ptr->value < a->value) || (i == 2 && ptr &&
-	ptr->value > a->value))
-		return (1);
-	ft_printf("tut?\n");
-	return (0);
-}
-
 int		is_slice(t_stack *a)
 {
 	t_stack	*ptr;

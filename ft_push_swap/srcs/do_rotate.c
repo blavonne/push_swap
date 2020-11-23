@@ -12,34 +12,34 @@
 
 #include "push_swap.h"
 
-void			do_ra(t_stack **a, t_stack **b, t_info **info, int i)
+void			do_ra(t_info *info, int i)
 {
 	while (i--)
 	{
-		run_command("ra", a, b, (*info)->flag);
-		if (!push_in_vector(&(*info)->cmd_c, RA, sizeof(char)))
-			clean_and_exit(a, b, info, 'm');
+		run_command("ra", info);
+		if (!push_in_vector(info->cmd_c, RA, sizeof(char)))
+			clean_and_exit(info, 'm');
 	}
 }
 
-void			do_rra(t_stack **a, t_stack **b, t_info **info, int i)
+void			do_rra(t_info *info, int i)
 {
 	while (i--)
 	{
-		run_command("rra", a, b, (*info)->flag);
-		if (!push_in_vector(&(*info)->cmd_c, RRA, sizeof(char)))
-			clean_and_exit(a, b, info, 'm');
+		run_command("rra", info);
+		if (!push_in_vector(info->cmd_c, RRA, sizeof(char)))
+			clean_and_exit(info, 'm');
 	}
 }
 
-void			do_rotate(t_stack **a, t_stack **b, t_info **info, int middle)
+void			do_rotate(t_info *info, int middle)
 {
 	int		len;
 	int		top;
 	int		bottom;
 	t_stack	*ptr;
 
-	ptr = (*a);
+	ptr = info->a;
 	len = 0;
 	top = 0;
 	bottom = -1;
@@ -56,7 +56,7 @@ void			do_rotate(t_stack **a, t_stack **b, t_info **info, int middle)
 		ptr = ptr->next;
 	}
 	if (top && bottom && top <= bottom)
-		do_ra(a, b, info, top);
+		do_ra(info, top);
 	else if (top && bottom && top > bottom)
-		do_rra(a, b, info, bottom);
+		do_rra(info, bottom);
 }

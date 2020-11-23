@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int		check_command(char *cmd)
+int					check_command(char *cmd)
 {
 	if (ft_strequ("sa", cmd) || ft_strequ("sb", cmd) || ft_strequ("ss", cmd) ||\
 	ft_strequ("pa", cmd) || ft_strequ("pb", cmd) || ft_strequ("ra", cmd) ||\
@@ -20,4 +20,25 @@ int		check_command(char *cmd)
 	ft_strequ("rrb", cmd) || ft_strequ("rrr", cmd))
 		return (1);
 	return (0);
+}
+
+void				check_duplicates(t_info *info)
+{
+	t_stack		*cur;
+	t_stack		*head;
+
+	head = info->a;
+	while (head->next)
+	{
+		cur = head->next;
+		{
+			while (cur)
+			{
+				if (cur->value == head->value)
+					clean_and_exit(info, 'd');
+				cur = cur->next;
+			}
+		}
+		head = head->next;
+	}
 }

@@ -12,34 +12,34 @@
 
 #include "push_swap.h"
 
-static void	rotate_rra(t_stack **a, t_stack **b, t_info **info, int steps)
+static void	rotate_rra(t_info *info, int steps)
 {
 	while (steps--)
 	{
-		run_command("rra", a, b, (*info)->flag);
-		if (!push_in_vector(&(*info)->cmd_c, RRA, sizeof(char)))
-			clean_and_exit(a, b, info, 'm');
+		run_command("rra", info);
+		if (!push_in_vector(info->cmd_c, RRA, sizeof(char)))
+			clean_and_exit(info, 'm');
 	}
 }
 
-static void	rotate_ra(t_stack **a, t_stack **b, t_info **info, int steps)
+static void	rotate_ra(t_info *info, int steps)
 {
 	while (steps--)
 	{
-		run_command("ra", a, b, (*info)->flag);
-		if (!push_in_vector(&(*info)->cmd_c, RA, sizeof(char)))
-			clean_and_exit(a, b, info, 'm');
+		run_command("ra", info);
+		if (!push_in_vector(info->cmd_c, RA, sizeof(char)))
+			clean_and_exit(info, 'm');
 	}
 }
 
-void		sort_slice(t_stack **a, t_stack **b, t_info **info)
+void		sort_slice(t_info *info)
 {
 	int		len;
 	int		min;
 	int		steps;
 	t_stack	*ptr;
 
-	ptr = (*a);
+	ptr = info->a;
 	len = 0;
 	min = ptr->value;
 	while (ptr)
@@ -53,7 +53,7 @@ void		sort_slice(t_stack **a, t_stack **b, t_info **info)
 		ptr = ptr->next;
 	}
 	if (len - steps < steps)
-		rotate_rra(a, b, info, len - steps);
+		rotate_rra(info, len - steps);
 	else
-		rotate_ra(a, b, info, steps);
+		rotate_ra(info, steps);
 }

@@ -12,23 +12,6 @@
 
 #include "push_swap.h"
 
-static int			is_flag(char *str)
-{
-	if (ft_strlen(str) == 2 && str[0] == '-' && ft_isalpha(str[1]))
-		return (1);
-	return (0);
-}
-
-static void			add_flag(char *str, int *flag)
-{
-	if (ft_strequ(str, "-v"))
-		(*flag) |= DEBUG;
-	else if (ft_strequ(str, "-r"))
-		(*flag) |= TO_FILE;
-	else if (ft_strequ(str, "-w"))
-		(*flag) |= FROM_FILE;
-}
-
 int					get_number(char *str, long long *number)
 {
 	int				sign;
@@ -54,51 +37,30 @@ int					get_number(char *str, long long *number)
 	return (1);
 }
 
-void				check_duplicates(t_stack **stack)
-{
-	t_stack		*cur;
-	t_stack		*head;
-
-	head = (*stack);
-	while (head->next)
-	{
-		cur = head->next;
-		{
-			while (cur)
-			{
-				if (cur->value == head->value)
-					clean_and_exit(stack, 0, 0, 'd');
-				cur = cur->next;
-			}
-		}
-		head = head->next;
-	}
-}
-
-t_stack				*read_argv(int argc, char **argv, int *flag)
+void				read_argv(int argc, char **argv, t_info *info)
 {
 	int				i;
-	t_stack			*stack;
 	long long int	number;
 
-	stack = NULL;
 	i = 1;
 	while (i < argc)
 	{
 		if (ft_strlen(argv[i]) == 0)
-			return (NULL);
+			clean_and_exit(info, 'm');
 		if (ft_isnumber(argv[i]))
 		{
 			if (ft_strlen(argv[i]) > 11 || !get_number(argv[i], &number))
-				return (NULL);
-			push_in_stack(&stack, (int)number);
+				clean_and_exit(info, 'm');
+			push_in_stack(info->a, (int)number);
 		}
+		/*
 		else if (is_flag(argv[i]))
-			add_flag(argv[i], flag);
-		else if (!(try_to_split(argv[i], &stack)))
-				return (NULL);
+			add_flag(argv[i], &info->flag);
+		else if (is_file(argv[i]))
+			add_file(argv[i], info->flag);
+		 */
+		else if (!(try_to_split(argv[i], info)))
+			clean_and_exit(info, 'm');
 		i++;
 	}
-	check_duplicates(&stack);
-	return (stack);
 }

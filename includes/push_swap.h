@@ -19,7 +19,6 @@
 # include <limits.h>
 
 # define V_SIZE			200u
-# define VARR_SIZE		30u
 # define DEBUG			0b00000001u
 # define TO_FILE		0b00000010u
 # define FROM_FILE		0b00000100u
@@ -52,20 +51,25 @@ typedef struct		s_vector
 	size_t			next;
 }					t_vector;
 
-typedef struct		s_info
-{
-	t_vector		*cmd_c;
-	t_vector		**cmd_arr;
-	size_t			arr_size;
-	t_place			place;
-	int				flag;
-}					t_info;
-
 typedef struct		s_stack
 {
 	int				value;
 	struct s_stack	*next;
 }					t_stack;
+
+typedef struct		s_info
+{
+	t_stack			*a;
+	t_stack			*b;
+	t_vector		*cmd_c;
+	t_place			place;
+	int				flag;
+	char			*from_file;
+	char			*to_file;
+	int				fd;
+}					t_info;
+
+
 
 typedef struct		s_map
 {
@@ -75,53 +79,49 @@ typedef struct		s_map
 	int				*size;
 }					t_map;
 
-t_stack				*read_argv(int argc, char **argv, int *flag);
+void				info_init(t_info *info);
+void				read_argv(int argc, char **argv, t_info *info);
 t_stack				*create_stack(void);
 int					get_number(char *str, long long int *number);
-int					push_in_stack(t_stack **stack, int value);
-int					try_to_split(char *str, t_stack **stack);
+int					push_in_stack(t_stack *stack, int value);
+int					try_to_split(char *str, t_info *info);
 
-void				run_command(char *command, t_stack **a, t_stack **b,\
-					int flag);
+void				run_command(char *command, t_info *info);
 int					check_command(char *cmd);
+void				check_duplicates(t_info *info);
 
-t_info				*create_main_struct(void);
 t_vector			*create_vector(void);
-int					push_in_vector(t_vector **v, int value, size_t size);
+int					push_in_vector(t_vector *v, int value, size_t size);
 
-void				clean_and_exit(t_stack **a, t_stack **b, t_info **m,\
-					char option);
+void				clean_and_exit(t_info *info, char option);
 void				destroy_map(t_map **map);
 void				destroy_main(t_info **m);
 void				destroy_vector(t_vector **v);
 void				destroy_stack(t_stack **stack);
-void				destroy_varr(t_info **m);
 
-void				get_commands(t_stack **a, t_stack **b, t_info **info);
-void				all_to_b(t_stack **a, t_stack **b, t_info **info);
+void				get_commands(t_info *info);
+void				all_to_b(t_info *info);
 int					check_mid(t_stack *a, int middle);
-int					get_middle(t_stack **a, t_stack **b, t_info **info);
+int					get_middle(t_info *info);
 int					*timsort(int *arr, int size);
 t_map				*set_map(t_map *map, int i);
 int					*merge(int *arr, t_map **map);
 int					*insertion_sort(int *arr, t_map *map);
 int					is_slice(t_stack *a);
-void				sort_slice(t_stack **a, t_stack **b, t_info **info);
-void				do_rotate(t_stack **a, t_stack **b, t_info **info,\
-					int middle);
-int					try_sa(t_stack **a, t_stack **b, t_info **info);
-int					all_to_a(t_stack **a, t_stack **b, t_info **info);
-void				steps_b(t_stack **b, t_place *cur, int value);
-void				steps_a(t_stack **a, t_place *cur, int value);
+void				sort_slice(t_info *info);
+void				do_rotate(t_info *info, int middle);
+int					try_sa(t_info *info);
+int					all_to_a(t_info *info);
+void				steps_b(t_stack *b, t_place *cur, int value);
+void				steps_a(t_stack *a, t_place *cur, int value);
 void				set_rr(t_place *place);
 int					check_asc_order(t_stack *a, t_stack *b);
 
 void				print_info(t_info *info);
-void				print_status(t_stack **a, t_stack **b, char *command,\
-					int flag);
+void				print_status(t_info *info, char *command);
 
 t_stack				*copy_stack(t_stack *src);
-int					cat_vectors(t_vector **dest, t_vector *src);
+int					cat_vectors(t_vector *dest, t_vector *src);
 t_vector			**create_varr(void);
 int					push_in_varr(t_info **m, t_vector *tmp);
 

@@ -12,34 +12,40 @@
 
 #include "push_swap.h"
 
+void	read_commands(t_info *info)
+{
+	char	*cmd;
+
+	cmd = NULL;
+	while (get_next_line(0, &cmd) > 0)
+	{
+		if (!check_command(cmd))
+			clean_and_exit(info, 'c');
+		run_command(cmd, info);
+		free(cmd);
+	}
+	free(cmd);
+}
+
 int		main(int argc, char **argv)
 {
-	t_stack	*a;
-	t_stack *b;
-	char	*cmd;
-	int		count;
 	t_info	info;
 
 	if (argc == 1)
 		return (0);
-	info.flag = 0;
-	b = NULL;
-	if ((a = read_argv(argc, argv, &info.flag)))
-	{
-		while ((count = get_next_line(0, &cmd)))
-		{
-			if (count < 0)
-				break ;
-			if (!check_command(cmd))
-				clean_and_exit(&a, &b, 0, 'c');
-			run_command(cmd, &a, &b, info.flag);
-			free(cmd);
-		}
-		free(cmd);
-		check_asc_order(a, b) ? ft_printf("OK\n") : ft_printf("KO\n");
-		clean_and_exit(&a, &b, 0, 0);
-	}
-	else
-		clean_and_exit(&a, &b, 0, 'd');
+	ft_printf("qwe\n");
+	info_init(&info);
+	info.flag = 1; //re
+	ft_printf("qwe\n");
+	print_status(&info, "qwe");
+	read_argv(argc, argv, &info);
+	print_status(&info, "qwe");
+	ft_printf("qwe\n");
+	check_duplicates(&info);
+	print_status(&info, "qwe");
+	read_commands(&info);
+	ft_printf("qwe\n");
+	check_asc_order(info.a, info.b) ? ft_printf("OK\n") : ft_printf("KO\n");
+	clean_and_exit(&info, 0);
 	return (0);
 }

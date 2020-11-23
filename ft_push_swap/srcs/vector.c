@@ -12,41 +12,41 @@
 
 #include "push_swap.h"
 
-static int			resize(t_vector **v)
+static int			resize(t_vector *v)
 {
 	void			*tmp;
 
-	if (!(tmp = malloc((*v)->size + V_SIZE)))
+	if (!(tmp = malloc(v->size + V_SIZE)))
 		return (0);
-	ft_memset(tmp, 0, (*v)->size + V_SIZE);
-	tmp = ft_memcpy(tmp, (*v)->arr, (*v)->size);
-	(*v)->size += V_SIZE;
-	free((*v)->arr);
-	(*v)->arr = tmp;
+	ft_memset(tmp, 0, (v->size + V_SIZE));
+	tmp = ft_memcpy(tmp, v->arr, v->size);
+	v->size += V_SIZE;
+	free(v->arr);
+	v->arr = tmp;
 	return (1);
 }
 
-int					push_in_vector(t_vector **v, int value, size_t size)
+int					push_in_vector(t_vector *v, int value, size_t size)
 {
 	unsigned char	*cmd;
 	int				*arr;
 	size_t			i;
 
-	i = (*v)->next;
-	while (size * (*v)->next + size > (*v)->size)
+	i = v->next;
+	while (size * v->next + size > v->size)
 		if (!resize(v))
 			return (0);
 	if (size == sizeof(char))
 	{
-		cmd = (*v)->arr;
+		cmd = v->arr;
 		cmd[i] = (unsigned char)value;
-		(*v)->next++;
+		v->next++;
 	}
 	else if (size == sizeof(int))
 	{
-		arr = (*v)->arr;
+		arr = v->arr;
 		arr[i] = value;
-		(*v)->next++;
+		v->next++;
 	}
 	return (1);
 }
@@ -72,12 +72,12 @@ t_vector			*copy_vector(t_vector *src)
 	return (NULL);
 }
 
-int					cat_vectors(t_vector **dest, t_vector *src)
+int					cat_vectors(t_vector *dest, t_vector *src)
 {
 	size_t			i;
 	unsigned char	*src_arr;
 
-	if (src && (*dest))
+	if (src && dest)
 	{
 		i = 0;
 		src_arr = src->arr;

@@ -24,9 +24,11 @@ void		destroy_stack(t_stack **stack)
 		{
 			ptr = tmp->next;
 			free(tmp);
+			tmp = NULL;
 			tmp = ptr;
 		}
 		free(*stack);
+		(*stack) = NULL;
 	}
 }
 
@@ -38,38 +40,15 @@ void		destroy_vector(t_vector **v)
 	(*v) = NULL;
 }
 
-void		destroy_varr(t_info **m)
+void		clean_and_exit(t_info *info, char option)
 {
-	size_t	i;
-
-	i = 0;
-	if ((*m)->cmd_arr)
-		while (i < (*m)->arr_size)
-		{
-			destroy_vector(&(*m)->cmd_arr[i]);
-			(*m)->cmd_arr[i++] = NULL;
-		}
-	free((*m)->cmd_arr);
-	(*m)->cmd_arr = NULL;
-}
-
-void		destroy_main(t_info **m)
-{
-	if ((*m))
+	if (info)
 	{
-		destroy_vector(&(*m)->cmd_c);
-		(*m)->cmd_c = NULL;
-		destroy_varr(m);
+		(info->a) ? destroy_stack(&info->a) : 0;
+		(info->b) ? destroy_stack(&info->b) : 0;
+		(info->cmd_c) ? destroy_vector(&info->cmd_c) : 0;
+		free(info->to_file);
+		free(info->from_file);
 	}
-	free(*m);
-	(*m) = NULL;
-}
-
-void		clean_and_exit(t_stack **a, t_stack **b, t_info **m,\
-		char option)
-{
-	(a) && (*a) ? destroy_stack(a) : 0;
-	(b) && (*b) ? destroy_stack(b) : 0;
-	(m) && (*m) ? destroy_main(m) : 0;
 	put_errmsg_and_exit(option);
 }

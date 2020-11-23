@@ -12,16 +12,16 @@
 
 #include "push_swap.h"
 
-static int		*get_arr(t_stack **a, int size)
+static int		*get_arr(t_info *info, int size)
 {
 	t_stack	*ptr;
 	int		*arr;
 	int		i;
 
 	if (!(arr = (int *)malloc((sizeof(int) * size))))
-		clean_and_exit(a, 0, 0, 'm');
+		clean_and_exit(info, 'm');
 	i = 0;
-	ptr = (*a);
+	ptr = info->a;
 	while (arr && ptr && i < size)
 	{
 		arr[i] = ptr->value;
@@ -44,14 +44,14 @@ static int		set_size(t_stack *a)
 	return (i);
 }
 
-int				get_middle(t_stack **a, t_stack **b, t_info **info)
+int				get_middle(t_info *info)
 {
 	int		*arr;
 	int		middle;
 	int		size;
 
-	size = set_size(*a);
-	arr = get_arr(a, size);
+	size = set_size(info->a);
+	arr = get_arr(info, size);
 	if ((arr = timsort(arr, size)))
 	{
 		middle = arr[size / 2];
@@ -61,7 +61,7 @@ int				get_middle(t_stack **a, t_stack **b, t_info **info)
 	else
 	{
 		free(arr);
-		clean_and_exit(a, b, info, 0);
+		clean_and_exit( info, 'm');
 		return (0);
 	}
 }

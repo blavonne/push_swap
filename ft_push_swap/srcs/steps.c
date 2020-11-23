@@ -12,13 +12,13 @@
 
 #include "push_swap.h"
 
-void		steps_b(t_stack **b, t_place *cur, int value)
+void		steps_b(t_stack *b, t_place *cur, int value)
 {
 	t_stack	*ptr;
 	int		len;
 
 	len = 0;
-	ptr = (*b);
+	ptr = b;
 	cur->way_to_b = 't';
 	while (ptr)
 	{
