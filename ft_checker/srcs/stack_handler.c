@@ -44,9 +44,10 @@ int			push_in_stack(t_stack *stack, int value)
 
 	if (!stack)
 	{
-		if (!(stack = create_stack()))
+		if (!(ptr = create_stack()))
 			clean_and_exit(0, 'm');
-		stack->value = value;
+		ptr->value = value;
+		stack = ptr;
 	}
 	else
 	{

@@ -62,5 +62,6 @@ void				read_argv(int argc, char **argv, t_info *info)
 		else if (!(try_to_split(argv[i], info)))
 			clean_and_exit(info, 'm');
 		i++;
+		print_status(info, "rty");
 	}
 }
