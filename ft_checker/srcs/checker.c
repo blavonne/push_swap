@@ -28,7 +28,7 @@ void				check_duplicates(t_info *info)
 	t_stack		*head;
 
 	head = info->a;
-	while (head->next)
+	while (head && head->next)
 	{
 		cur = head->next;
 		{

@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_info	info;
 
@@ -22,7 +22,7 @@ int		main(int argc, char **argv)
 	read_argv(argc, argv, &info);
 	check_duplicates(&info);
 	get_commands(&info);
-	if (!info.flag)
+	if (info.flag != 1)
 		print_info(&info);
 	clean_and_exit(&info, 0);
 	return (0);

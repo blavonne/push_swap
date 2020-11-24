@@ -20,6 +20,7 @@
 # include <fcntl.h>
 
 # define V_SIZE			200u
+
 # define DEBUG			0b00000001u
 # define TO_FILE		0b00000010u
 

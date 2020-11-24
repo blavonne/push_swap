@@ -20,7 +20,7 @@ void	read_commands(t_info *info)
 	fd = 0;
 	if (info->flag & TO_FILE && info->to_file)
 		fd = open(info->to_file, O_RDONLY);
-	if (fd < 0)
+	if ((info->flag & TO_FILE && !info->to_file) || fd < 0)
 		clean_and_exit(info, 'f');
 	cmd = NULL;
 	while (get_next_line(fd, &cmd) > 0)
@@ -43,6 +43,8 @@ int		main(int argc, char **argv)
 		return (0);
 	ft_bzero(&info, sizeof(struct s_info));
 	read_argv(argc, argv, &info);
+	if (!info.a)
+		clean_and_exit(&info, 'r');
 	check_duplicates(&info);
 	read_commands(&info);
 	check_asc_order(info.a, info.b) ? ft_printf("OK\n") : ft_printf("KO\n");

@@ -12,23 +12,6 @@
 
 #include "push_swap.h"
 
-static void		print_one(t_stack *ptr_a, t_stack *ptr_b)
-{
-	while (ptr_a)
-	{
-		ft_printf("%11d  ", ptr_a->value);
-		ft_printf("%-11s", ".");
-		ptr_a = ptr_a->next;
-		ft_printf("\n");
-	}
-	while (ptr_b)
-	{
-		ft_printf("%11s  ", ".");
-		ft_printf("%-11d\n", ptr_b->value);
-		ptr_b = ptr_b->next;
-	}
-}
-
 static void		print_both(t_stack *ptr_a, t_stack *ptr_b)
 {
 	while (ptr_a)
