@@ -78,21 +78,19 @@ void			all_to_b(t_info *info)
 {
 	int				middle_val;
 
-	if (info->a && info->a->next && info->a->next->next) //было в цикле
+	while (info->a && info->a->next && info->a->next->next &&\
+	!(is_slice(info->a)))
 	{
-		while (!(is_slice(info->a)))
+		middle_val = get_middle(info);
+		try_sa(info);
+		while (check_mid(info->a, middle_val) && !(is_slice((info->a))))
 		{
-			middle_val = get_middle(info);
 			try_sa(info);
-			while (check_mid(info->a, middle_val) && !(is_slice((info->a))))
-			{
-				try_sa(info);
-				to_b_rb(info, middle_val);
-				try_sa(info);
-				to_b_rrb(info, middle_val);
-				try_sa(info);
-				do_rotate(info, middle_val);
-			}
+			to_b_rb(info, middle_val);
+			try_sa(info);
+			to_b_rrb(info, middle_val);
+			try_sa(info);
+			do_rotate(info, middle_val);
 		}
 	}
 }

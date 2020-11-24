@@ -17,11 +17,11 @@
 # include "libft.h"
 # include "printf.h"
 # include <limits.h>
+# include <fcntl.h>
 
 # define V_SIZE			200u
 # define DEBUG			0b00000001u
 # define TO_FILE		0b00000010u
-# define FROM_FILE		0b00000100u
 
 # define RA		0b00000001u
 # define RB		0b00000010u
@@ -64,12 +64,8 @@ typedef struct		s_info
 	t_vector		*cmd_c;
 	t_place			place;
 	int				flag;
-	char			*from_file;
 	char			*to_file;
-	int				fd;
 }					t_info;
-
-
 
 typedef struct		s_map
 {
@@ -83,6 +79,8 @@ void				info_init(t_info *info);
 void				read_argv(int argc, char **argv, t_info *info);
 int					is_flag(char *str);
 void				add_flag(char *str, int *flag);
+int					is_file(char *str);
+void				add_file(t_info *info, char *str);
 t_stack				*create_stack(void);
 int					get_number(char *str, long long int *number);
 int					push_in_stack(t_stack **stack, int value);
@@ -119,7 +117,7 @@ void				set_rr(t_place *place);
 int					check_asc_order(t_stack *a, t_stack *b);
 
 void				print_info(t_info *info);
-void				print_status(t_info *info, char *command);
+void				print_debug(t_info *info, char *command);
 
 t_stack				*copy_stack(t_stack *src);
 int					cat_vectors(t_vector **dest, t_vector *src);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_debug.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: blavonne <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/22 01:41:22 by blavonne          #+#    #+#             */
+/*   Updated: 2020/08/22 01:41:24 by blavonne         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static void		print_one(t_stack *ptr_a, t_stack *ptr_b)
@@ -40,12 +52,12 @@ static void		print_both(t_stack *ptr_a, t_stack *ptr_b)
 	}
 }
 
-void		print_status(t_info *info, char *command)
+void			print_debug(t_info *info, char *command)
 {
 	t_stack	*ptr_a;
 	t_stack	*ptr_b;
 
-	if (info->flag)
+	if (info->flag & DEBUG)
 	{
 		ptr_a = info->a;
 		ptr_b = info->b;
@@ -56,10 +68,7 @@ void		print_status(t_info *info, char *command)
 			ft_printf("|    Run command %s    |\n", command);
 		ft_printf("=========================\n");
 		ft_printf("%11s  %-11s\n", "A", "B");
-		if (info->flag == 2) //вроде не использовала
-			print_one(ptr_a, ptr_b);
-		else if (info->flag == 1)
-			print_both(ptr_a, ptr_b);
+		print_both(ptr_a, ptr_b);
 		ft_printf("\n");
 	}
 }

@@ -105,5 +105,5 @@ void			run_command(char *command, t_info *info)
 		run_rr(&info->a);
 		run_rr(&info->b);
 	}
-	print_status(info, command);
+	print_debug(info, command);
 }

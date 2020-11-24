@@ -21,6 +21,7 @@ void	put_errmsg_and_exit(char type)
 	type == 'a' ? ft_putstr_fd("Error\n", 2) : 0;
 	type == 'h' ? ft_putstr_fd("Trying to destroy not head!\n", 2) : 0;
 	type == 'u' ? ft_putstr_fd("Error: unknown conversion type.\n", 2) : 0;
+	type == 'f' ? ft_putstr_fd("Error: file not found.\n", 2) : 0;
 	if (type == 0)
 		exit(0);
 	exit(1);

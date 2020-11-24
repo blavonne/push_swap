@@ -18,7 +18,7 @@ int		main(int argc, char **argv)
 
 	if (argc == 1)
 		return (0);
-	info_init(&info);
+	ft_bzero(&info, sizeof(struct s_info));
 	read_argv(argc, argv, &info);
 	check_duplicates(&info);
 	get_commands(&info);

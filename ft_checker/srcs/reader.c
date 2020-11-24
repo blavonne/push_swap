@@ -55,10 +55,8 @@ void				read_argv(int argc, char **argv, t_info *info)
 		}
 		else if (is_flag(argv[i]))
 			add_flag(argv[i], &info->flag);
-		/*
-		else if (is_file(argv[i]))
-			add_file(argv[i], info->flag);
-		 */
+		else if (info->flag & TO_FILE && is_file(argv[i]))
+			add_file(info, argv[i]);
 		else if (!(try_to_split(argv[i], info)))
 			clean_and_exit(info, 'm');
 		i++;

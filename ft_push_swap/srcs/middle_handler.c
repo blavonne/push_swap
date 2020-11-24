@@ -61,7 +61,7 @@ int				get_middle(t_info *info)
 	else
 	{
 		free(arr);
-		clean_and_exit( info, 'm');
+		clean_and_exit(info, 'm');
 		return (0);
 	}
 }
