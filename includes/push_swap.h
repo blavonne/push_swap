@@ -23,18 +23,25 @@
 
 # define DEBUG			0b00000001u
 # define TO_FILE		0b00000010u
+# define COLOR			0b00000100u
 
 # define RA		0b00000001u
 # define RB		0b00000010u
 # define RR		0b00000011u
 # define SA		0b00000100u
-# define SB		0b00001000u
-# define SS		0b00001100u
 # define RRA	0b00010000u
 # define RRB	0b00100000u
 # define RRR	0b00110000u
 # define PB		0b01000000u
 # define PA		0b10000000u
+
+# define ANSI_RED		"\x1b[38;5;206m"
+# define ANSI_GREEN		"\x1b[32m"
+# define ANSI_YELLOW	"\x1b[33m"
+# define ANSI_BLUE		"\x1b[34m"
+# define ANSI_MAGENTA	"\x1b[35m"
+# define ANSI_YAN		"\x1b[36m"
+# define ANSI_RESET		"\x1b[0m"
 
 typedef struct		s_place
 {
@@ -117,8 +124,9 @@ void				steps_a(t_stack *a, t_place *cur, int value);
 void				set_rr(t_place *place);
 int					check_asc_order(t_stack *a, t_stack *b);
 
-void				print_info(t_info *info);
+void				print_commands(t_info *info);
 void				print_debug(t_info *info, char *command);
+void				print_color(t_stack *ptr_a, t_stack *ptr_b, char *command);
 
 t_stack				*copy_stack(t_stack *src);
 int					cat_vectors(t_vector **dest, t_vector *src);

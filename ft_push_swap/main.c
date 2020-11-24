@@ -23,7 +23,7 @@ int			main(int argc, char **argv)
 	check_duplicates(&info);
 	get_commands(&info);
 	if (info.flag != 1)
-		print_info(&info);
+		print_commands(&info);
 	clean_and_exit(&info, 0);
 	return (0);
 }

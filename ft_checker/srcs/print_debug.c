@@ -40,7 +40,7 @@ void			print_debug(t_info *info, char *command)
 	t_stack	*ptr_a;
 	t_stack	*ptr_b;
 
-	if (info->flag & DEBUG)
+	if (info->flag & DEBUG || info->flag & COLOR)
 	{
 		ptr_a = info->a;
 		ptr_b = info->b;
@@ -51,6 +51,7 @@ void			print_debug(t_info *info, char *command)
 			ft_printf("|    Run command %s    |\n", command);
 		ft_printf("=========================\n");
 		ft_printf("%11s  %-11s\n", "A", "B");
+		(info->flag & COLOR) ? print_color(ptr_a, ptr_b, command) :\
 		print_both(ptr_a, ptr_b);
 		ft_printf("\n");
 	}

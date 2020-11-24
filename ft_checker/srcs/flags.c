@@ -25,6 +25,8 @@ void			add_flag(char *str, int *flag)
 		(*flag) |= DEBUG;
 	else if (ft_strequ(str, "-f"))
 		(*flag) |= TO_FILE;
+	else if (ft_strequ(str, "-c"))
+		(*flag) |= COLOR;
 }
 
 int				is_file(char *str)
