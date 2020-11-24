@@ -35,12 +35,12 @@
 # define PB		0b01000000u
 # define PA		0b10000000u
 
-# define ANSI_RED		"\x1b[38;5;206m"
-# define ANSI_GREEN		"\x1b[32m"
-# define ANSI_YELLOW	"\x1b[33m"
-# define ANSI_BLUE		"\x1b[34m"
-# define ANSI_MAGENTA	"\x1b[35m"
-# define ANSI_YAN		"\x1b[36m"
+# define ANSI_PINK		"\x1b[38;5;206m"
+# define ANSI_GRE		"\x1b[38;5;87m"
+# define ANSI_YELLOW	"\x1b[38;5;226m"
+# define ANSI_VIOL		"\x1b[38;5;141m"
+# define ANSI_GREEN		"\x1b[38;5;82m"
+# define ANSI_ORANGE	"\x1b[38;5;202m"
 # define ANSI_RESET		"\x1b[0m"
 
 typedef struct		s_place

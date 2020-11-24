@@ -56,6 +56,7 @@ void			to_b_rrb(t_info *info, int middle)
 			run_command("ra", info);
 			break ;
 		}
+		try_sa(info);
 	}
 }
 
@@ -71,6 +72,7 @@ void			to_b_rb(t_info *info, int middle)
 		}
 		else
 			break ;
+		try_sa(info);
 	}
 }
 
@@ -87,9 +89,7 @@ void			all_to_b(t_info *info)
 		{
 			try_sa(info);
 			to_b_rb(info, middle_val);
-			try_sa(info);
 			to_b_rrb(info, middle_val);
-			try_sa(info);
 			do_rotate(info, middle_val);
 		}
 	}
